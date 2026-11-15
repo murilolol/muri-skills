@@ -1,7 +1,7 @@
 {
   "name": "muri-skills",
   "private": true,
-  "description": "As skills que eu uso todo dia com agentes de código (Claude Code, Codex, Antigravity), medidas em uso real.",
+  "description": "Skills para agentes de código (Claude Code, Codex, Antigravity): muri-video, muri-saver e uma stack curada de terceiros, com crédito.",
   "type": "module",
   "license": "MIT",
   "author": "Murilo Silva <https://github.com/murilolol>",

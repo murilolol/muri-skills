@@ -12,11 +12,9 @@ language. The global instructions (CLAUDE.md/AGENTS.md/GEMINI.md) already
 cover memory-first, automatic session capture, context vs. quota and logs —
 apply them, don't repeat them.
 
-The real cost drivers found by auditing real transcripts: **marathon
-sessions** (one ran 42h / 7,059 messages), **rereading the same file** (up to
-54× in a session), **high effort for everything**, **screenshots instead of
-page text** (501 × 3) and **reloading tool schemas**. An expensive model is
-<1% of the problem. On activation, classify the task (profiles below) and
+The real cost drivers: **marathon sessions**, **rereading the same file**,
+**high effort for everything**, **screenshots instead of page text** and
+**reloading tool schemas**. An expensive model is a small part of the problem. On activation, classify the task (profiles below) and
 apply them together with the universal rules.
 
 ## Universal rules
@@ -36,8 +34,8 @@ apply them together with the universal rules.
   suggest a fresh session (the automatic handoff keeps continuity). At a
   natural cut-off point, close even if "it could continue". Large context:
   a pointed question → memory query; otherwise close with a handoff.
-  A 30-day audit: turns above 250k context were 71% of the spend and cold-cache
-  resumes cost 33.5M tokens-eq. Hence `autoCompactWindow: 250000`, the
+  Large contexts and cold-cache resumes dominate cost. Hence
+  `autoCompactWindow: 250000`, the
   `guarda-contexto.py` hook (holds the first prompt after 55 min idle with
   >80k context; nudges a fresh session at 120k/160k/200k) and the token-colored
   status line. Off switch: `MURI_GUARDA=0`.

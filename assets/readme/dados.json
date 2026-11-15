@@ -1,378 +1,217 @@
 {
-  "_fonte": "Uso real do autor. Claude Code: blocos tool_use da ferramenta Skill contados nos transcripts locais. Codex: referências a caminhos <skill>/ nos logs de sessão, que contam cada arquivo lido dentro da skill (menções, não invocações). Upstream conferido no GitHub em 2026-11-15.",
-  "medido_em": "2026-11-15",
-  "transcripts": 640,
-  "projetos": 58,
-  "metodologia": {
-    "pt": "Claude Code: cada bloco tool_use da ferramenta Skill nos 640 transcripts locais (58 projetos) conta 1 invocação; sessões = transcripts com pelo menos 1 invocação. Codex: cada caminho <skill>/ citado nos logs de sessão conta 1 menção, inclusive leitura de arquivo dentro da skill, por isso o número infla e não se compara com o do Claude.",
-    "en": "Claude Code: every Skill tool_use block across 640 local transcripts (58 projects) counts as 1 invocation; sessions = transcripts with at least 1 invocation. Codex: every <skill>/ path in the session logs counts as 1 mention, including file reads inside the skill, so the number is inflated and not comparable to Claude's."
-  },
+  "_sobre": "Fonte única do conteúdo do README e das imagens em assets/readme. A ordem das listas é a ordem de importância. Autor, repositório, licença e comando de instalação da stack foram conferidos no GitHub em 2026-11-15. Gere tudo com: node tools/build-assets.mjs",
+  "autor": { "nome": "Murilo Silva", "github": "murilolol" },
+  "hosts": ["Claude Code", "Codex", "Antigravity"],
   "autorais": [
     {
-      "nome": "muri-saver",
-      "pasta": "skills/muri-saver",
-      "claude": [
-        161,
-        93
-      ],
-      "codex": 52,
-      "pt": "Modo de economia de contexto e cota: não reler, paralelizar, sessões curtas",
-      "en": "Context and quota saving mode: no rereads, parallel calls, short sessions"
+      "nome": "muri-video",
+      "num": "01",
+      "pasta": "skills/muri-video",
+      "icone": "film",
+      "instalar": "npx skills add murilolol/muri-skills --skill muri-video",
+      "ativar": "muri video",
+      "motor": "Remotion · HyperFrames",
+      "orquestra": ["video-shotcraft", "remotion-best-practices", "grill-me"],
+      "pt": {
+        "categoria": "Vídeo",
+        "resumo": "Vídeo de apresentação narrado, do briefing ao MP4 pronto para publicar.",
+        "para_que_serve": "Conduz o agente por um processo de produtora para fazer vídeo institucional, de produto, de resultados ou de portfólio. Ele faz o briefing em rodadas de perguntas, escreve o roteiro para a voz, propõe direções visuais e storyboard e produz as cenas em Remotion (ou HyperFrames) com câmera 2.5D, som e legenda. Cada etapa marcada com ✋ pausa e espera a sua aprovação.",
+        "quando_usar": "muri video, faz o vídeo de lançamento do app",
+        "entrega": "Quatro MP4 (16:9 e 9:16, com e sem trilha, até 4K) e legenda VTT; quando você pede, peças de story e feed com texto por rede e uma revisão final por subagente.",
+        "chips_quando": ["institucional", "lançamento de produto", "resultados e dados", "portfólio", "vídeo para redes"],
+        "chips_entrega": ["4 MP4 em 16:9 e 9:16", "com e sem trilha, até 4K", "legenda VTT", "story e feed (opcional)", "revisão final (opcional)"],
+        "etapas": [
+          { "titulo": "Briefing", "linhas": ["Rodadas de perguntas,", "a recomendada primeiro"], "aprova": true, "arte": "briefing" },
+          { "titulo": "Roteiro e voz", "linhas": ["Texto aprovado antes", "de gastar cota de TTS"], "aprova": true, "arte": "roteiro" },
+          { "titulo": "Direção visual", "linhas": ["Três styleframes", "e o storyboard"], "aprova": true, "arte": "direcao" },
+          { "titulo": "Cenas", "linhas": ["Câmera 2.5D, dois", "pilotos antes do resto"], "aprova": true, "arte": "cenas" },
+          { "titulo": "Som", "linhas": ["Trilha e efeitos no", "pico de cada ação"], "aprova": false, "arte": "som" },
+          { "titulo": "Render", "linhas": ["Formatos em paralelo,", "revisão antes da entrega"], "aprova": true, "arte": "render" }
+        ]
+      },
+      "en": {
+        "categoria": "Video",
+        "resumo": "Narrated presentation video, from brief to a ready-to-publish MP4.",
+        "para_que_serve": "Walks the agent through a production-studio process for company, product, results or portfolio videos. It runs the brief as rounds of questions, writes the script for voiceover, proposes visual directions and a storyboard, and builds the scenes in Remotion (or HyperFrames) with 2.5D camera moves, sound and captions. Every stage marked ✋ pauses for your approval.",
+        "quando_usar": "muri video, make the launch video for the app",
+        "entrega": "Four MP4s (16:9 and 9:16, with and without music, up to 4K) and VTT captions; when you ask, story and feed cuts with copy per network and a final review by a subagent.",
+        "chips_quando": ["company profile", "product launch", "results and data", "portfolio", "social video"],
+        "chips_entrega": ["4 MP4s in 16:9 and 9:16", "with and without music, up to 4K", "VTT captions", "story and feed (optional)", "final review (optional)"],
+        "etapas": [
+          { "titulo": "Brief", "linhas": ["Rounds of questions,", "recommended option first"] },
+          { "titulo": "Script and voice", "linhas": ["Text approved before", "any TTS quota is spent"] },
+          { "titulo": "Visual direction", "linhas": ["Three styleframes", "and the storyboard"] },
+          { "titulo": "Scenes", "linhas": ["2.5D camera, two", "pilots before the rest"] },
+          { "titulo": "Sound", "linhas": ["Music and effects on", "the peak of each action"] },
+          { "titulo": "Render", "linhas": ["Formats in parallel,", "review before delivery"] }
+        ]
+      }
     },
     {
-      "nome": "muri-video",
-      "pasta": "skills/muri-video",
-      "claude": [
-        59,
-        37
-      ],
-      "codex": 1369,
-      "pt": "Pipeline de vídeo narrado, do briefing ao MP4 em 16:9 e 9:16",
-      "en": "Narrated video pipeline, from brief to MP4 in 16:9 and 9:16"
+      "nome": "muri-saver",
+      "num": "02",
+      "pasta": "skills/muri-saver",
+      "icone": "gauge",
+      "instalar": "npx skills add murilolol/muri-skills --skill muri-saver",
+      "ativar": "muri saver",
+      "desativar": "sair do muri-saver",
+      "desativar_en": "sair do muri-saver · or ask",
+      "kit": "https://github.com/murilolol/muri-saver",
+      "pt": {
+        "categoria": "Contexto e cota",
+        "resumo": "Modo econômico para agentes: sessões curtas, contexto enxuto, sem cortar qualidade.",
+        "para_que_serve": "Um modo que fica ligado a conversa inteira e muda o jeito como o agente trabalha. Ele busca antes de ler, nunca relê o que já está no contexto, agrupa chamadas independentes, prefere o texto da página a um screenshot e sugere sessão nova quando o assunto muda. Com o kit completo, o trabalho mecânico vai para outra cota (o Gemini varre e resume, o Codex revisa e implementa com o seu ok) e o handoff entre sessões é automático.",
+        "quando_usar": "muri saver",
+        "entrega": "Respostas diretas, menos leitura repetida e sessões que terminam na hora certa, para a cota do plano durar a semana. Nenhum teste necessário é pulado e nenhum requisito é cortado para economizar.",
+        "chips_quando": ["sessão longa e lenta", "agente relendo arquivo", "cota acabando antes do fim da semana", "tarefa mecânica pesada"],
+        "gauge": { "titulo": "CONTEXTO DA SESSÃO", "zonas": ["enxuto", "atenção", "recomeçar"], "com": "com muri-saver: contexto útil", "sem": "sem a skill: contexto inchando" },
+        "delegacao": {
+          "titulo": "COM O KIT: DELEGA O MECÂNICO",
+          "voce": ["Você", "pede e aprova"],
+          "agente": ["Seu agente", "planeja e revisa"],
+          "gemini": ["Gemini", "varredura e resumo"],
+          "codex": ["Codex", "revisão; código com seu ok"]
+        },
+        "regras": [
+          { "icone": "split", "titulo": "Uma sessão por assunto", "texto": "Assunto novo, sugere sessão nova." },
+          { "icone": "noreread", "titulo": "Nada de reler", "texto": "O que está no contexto não é lido de novo." },
+          { "icone": "text", "titulo": "Texto antes de imagem", "texto": "Screenshot só quando a pergunta é visual." },
+          { "icone": "batch", "titulo": "Chamadas em lote", "texto": "O que é independente sai na mesma rodada." },
+          { "icone": "reply", "titulo": "Respostas diretas", "texto": "Sem preâmbulo e sem recapitular." },
+          { "icone": "shield", "titulo": "Qualidade não se negocia", "texto": "Teste necessário nunca é pulado." }
+        ]
+      },
+      "en": {
+        "categoria": "Context and quota",
+        "resumo": "Saving mode for coding agents: short sessions, lean context, no quality cuts.",
+        "para_que_serve": "A mode that stays on for the whole conversation and changes how the agent works. It searches before reading, never rereads what is already in context, batches independent calls, prefers page text to a screenshot and suggests a new session when the topic changes. With the full kit, mechanical work goes to another quota (Gemini sweeps and summarizes, Codex reviews and implements with your OK) and the handoff between sessions is automatic.",
+        "quando_usar": "muri saver",
+        "entrega": "Direct answers, fewer repeated reads and sessions that end at the right time, so the plan quota lasts the week. No needed test is skipped and no requirement is dropped to save tokens.",
+        "chips_quando": ["long, slow session", "agent rereading files", "quota running out early", "heavy mechanical task"],
+        "gauge": { "titulo": "SESSION CONTEXT", "zonas": ["lean", "watch", "restart"], "com": "with muri-saver: useful context", "sem": "without it: context bloating" },
+        "delegacao": {
+          "titulo": "WITH THE KIT: DELEGATES THE MECHANICAL",
+          "voce": ["You", "ask and approve"],
+          "agente": ["Your agent", "plans and reviews"],
+          "gemini": ["Gemini", "sweeps and summaries"],
+          "codex": ["Codex", "review; code with your OK"]
+        },
+        "regras": [
+          { "titulo": "One session per topic", "texto": "New topic, suggests a new session." },
+          { "titulo": "No rereading", "texto": "What is in context is not read again." },
+          { "titulo": "Text before images", "texto": "Screenshots only for visual questions." },
+          { "titulo": "Batched calls", "texto": "Independent calls go out in one round." },
+          { "titulo": "Direct answers", "texto": "No preamble and no recap." },
+          { "titulo": "Quality is never traded away", "texto": "A needed test is never skipped." }
+        ]
+      }
     }
+  ],
+  "grupos": [
+    { "id": "design", "icone": "grid", "pt": { "nome": "Design & UI", "desc": "Interfaces com direção e acabamento, do zero ao polimento." }, "en": { "nome": "Design & UI", "desc": "Interfaces with direction and finish, from blank page to polish." } },
+    { "id": "planejamento", "icone": "route", "pt": { "nome": "Planejamento", "desc": "Entender o pedido e o código antes da primeira linha." }, "en": { "nome": "Planning", "desc": "Understand the request and the code before the first line." } },
+    { "id": "engenharia", "icone": "code", "pt": { "nome": "Engenharia", "desc": "Teste primeiro, comportamento coberto." }, "en": { "nome": "Engineering", "desc": "Test first, behavior covered." } },
+    { "id": "automacao", "icone": "bolt", "pt": { "nome": "Automação", "desc": "Navegador de verdade e skills prontas." }, "en": { "nome": "Automation", "desc": "A real browser and ready-made skills." } },
+    { "id": "video", "icone": "clapper", "pt": { "nome": "Vídeo", "desc": "As skills que a muri-video usa para planos, câmera e API do Remotion." }, "en": { "nome": "Video", "desc": "The skills muri-video draws on for shots, camera and the Remotion API." } }
   ],
   "stack": [
     {
-      "nome": "impeccable",
-      "repo": "https://github.com/pbakaus/impeccable",
-      "autor": "Paul Bakaus",
-      "github": "pbakaus",
-      "licenca": "Apache-2.0",
+      "nome": "impeccable", "grupo": "design", "icone": "sparkle",
+      "repo": "https://github.com/pbakaus/impeccable", "autor": "Paul Bakaus", "github": "pbakaus", "licenca": "Apache-2.0",
       "instalar": "npx impeccable install",
-      "claude": [
-        98,
-        68
-      ],
-      "codex": 672,
-      "pt": "Crítica e polimento de qualquer tela antes de entregar. A skill de terceiros que eu mais chamo.",
-      "en": "Critique and polish of every screen before it ships. The third-party skill I call most."
+      "pt": { "resumo": "Critica, audita e lapida interfaces web", "para_que_serve": "Um kit de design para o agente: crítica, auditoria, polimento, tipografia, cor, layout, motion e acessibilidade de telas web. Aponta o que parece genérico e corrige.", "quando_usar": "faz uma crítica dessa tela antes de eu publicar", "entrega": "Diagnóstico priorizado e a tela ajustada." },
+      "en": { "resumo": "Critiques, audits and polishes web interfaces", "para_que_serve": "A design kit for the agent: critique, audit, polish, typography, color, layout, motion and accessibility for web screens. It points out what looks generic and fixes it.", "quando_usar": "critique this screen before I ship it", "entrega": "A prioritized diagnosis and the adjusted screen." }
     },
     {
-      "nome": "grill-me",
-      "repo": "https://github.com/mattpocock/skills",
-      "autor": "Matt Pocock",
-      "github": "mattpocock",
-      "licenca": "MIT",
+      "nome": "grill-me", "grupo": "planejamento", "icone": "ask",
+      "repo": "https://github.com/mattpocock/skills", "autor": "Matt Pocock", "github": "mattpocock", "licenca": "MIT",
       "instalar": "npx skills@latest add mattpocock/skills --skill grill-me",
-      "claude": [
-        26,
-        15
-      ],
-      "codex": 11,
-      "pt": "Antes de plano grande: perguntas em rodadas até não sobrar ponta solta. A muri-video pergunta desse jeito.",
-      "en": "Before any big plan: rounds of questions until nothing is left open. muri-video asks the same way."
+      "pt": { "resumo": "Perguntas em rodadas até o plano fechar", "para_que_serve": "O agente entrevista você sobre cada decisão de um plano até os dois chegarem ao mesmo entendimento. Serve para pedido grande que ainda tem ponta solta. Só roda quando chamada.", "quando_usar": "/grill-me esse plano antes de começar", "entrega": "Um plano sem ambiguidade, com as decisões registradas." },
+      "en": { "resumo": "Rounds of questions until the plan is closed", "para_que_serve": "The agent interviews you about every decision in a plan until you both reach the same understanding. Useful for a big request that still has loose ends. Runs only when invoked.", "quando_usar": "/grill-me on this plan before we start", "entrega": "An unambiguous plan with the decisions written down." }
     },
     {
-      "nome": "tdd",
-      "repo": "https://github.com/mattpocock/skills",
-      "autor": "Matt Pocock",
-      "github": "mattpocock",
-      "licenca": "MIT",
+      "nome": "tdd", "grupo": "engenharia", "icone": "cycle",
+      "repo": "https://github.com/mattpocock/skills", "autor": "Matt Pocock", "github": "mattpocock", "licenca": "MIT",
       "instalar": "npx skills@latest add mattpocock/skills --skill tdd",
-      "claude": [
-        26,
-        15
-      ],
-      "codex": 10,
-      "pt": "Bug e feature começam pelo teste que falha, com teste de integração no lugar de mock.",
-      "en": "Bugs and features start from a failing test, with integration tests instead of mocks."
+      "pt": { "resumo": "Red-green-refactor, um teste por vez", "para_que_serve": "Conduz feature e correção de bug pelo ciclo red-green-refactor em fatias verticais. Os testes verificam comportamento pela interface pública, não detalhe de implementação.", "quando_usar": "corrige esse bug começando pelo teste", "entrega": "Código coberto por testes que sobrevivem à refatoração." },
+      "en": { "resumo": "Red-green-refactor, one test at a time", "para_que_serve": "Drives features and bug fixes through red-green-refactor in vertical slices. Tests check behavior through the public interface, not implementation details.", "quando_usar": "fix this bug starting from a test", "entrega": "Code covered by tests that survive refactoring." }
     },
     {
-      "nome": "find-skills",
-      "repo": "https://github.com/vercel-labs/skills",
-      "autor": "Vercel Labs",
-      "github": "vercel-labs",
-      "licenca": "MIT",
+      "nome": "find-skills", "grupo": "automacao", "icone": "search",
+      "repo": "https://github.com/vercel-labs/skills", "autor": "Vercel Labs", "github": "vercel-labs", "licenca": "MIT",
       "instalar": "npx skills add vercel-labs/skills --skill find-skills",
-      "claude": [
-        12,
-        7
-      ],
-      "codex": null,
-      "pt": "Antes de escrever uma skill, confiro se alguém já escreveu.",
-      "en": "Before writing a skill, I check whether someone already has."
+      "pt": { "resumo": "Acha uma skill pronta antes de você escrever a sua", "para_que_serve": "Quando aparece um \"tem skill para isso?\", procura no ecossistema aberto de skills e mostra como instalar a que resolve.", "quando_usar": "existe alguma skill para revisar acessibilidade?", "entrega": "As opções encontradas, com o comando de instalação." },
+      "en": { "resumo": "Finds a ready skill before you write your own", "para_que_serve": "When an \"is there a skill for this?\" comes up, it searches the open skills ecosystem and shows how to install the one that fits.", "quando_usar": "is there a skill for accessibility reviews?", "entrega": "The options found, with the install command." }
     },
     {
-      "nome": "agent-browser",
-      "repo": "https://github.com/vercel-labs/agent-browser",
-      "autor": "Vercel Labs",
-      "github": "vercel-labs",
-      "licenca": "Apache-2.0",
+      "nome": "agent-browser", "grupo": "automacao", "icone": "browser",
+      "repo": "https://github.com/vercel-labs/agent-browser", "autor": "Vercel Labs", "github": "vercel-labs", "licenca": "Apache-2.0",
       "instalar": "npx skills add vercel-labs/agent-browser",
-      "claude": [
-        9,
-        8
-      ],
-      "codex": 29,
-      "pt": "Testar o app num navegador de verdade sem sair do terminal. Precisa do CLI agent-browser.",
-      "en": "Test the app in a real browser without leaving the terminal. Needs the agent-browser CLI."
+      "pt": { "resumo": "Navegador real controlado pelo agente", "para_que_serve": "Ensina o agente a usar o CLI agent-browser para abrir páginas, clicar, preencher formulários e ler a tela. Serve para testar o app de verdade e fazer QA exploratório. Precisa do CLI instalado.", "quando_usar": "abre o app local e testa o fluxo de cadastro", "entrega": "O fluxo executado, com o que quebrou e a evidência." },
+      "en": { "resumo": "A real browser driven by the agent", "para_que_serve": "Teaches the agent to use the agent-browser CLI to open pages, click, fill forms and read the screen. Good for testing the real app and exploratory QA. Needs the CLI installed.", "quando_usar": "open the local app and test the sign-up flow", "entrega": "The flow run end to end, with what broke and the evidence." }
     },
     {
-      "nome": "frontend-design",
-      "repo": "https://github.com/anthropics/skills/tree/main/skills/frontend-design",
-      "autor": "Anthropic",
-      "github": "anthropics",
-      "licenca": "Apache-2.0",
+      "nome": "frontend-design", "grupo": "design", "icone": "nib",
+      "repo": "https://github.com/anthropics/skills/tree/main/skills/frontend-design", "autor": "Anthropic", "github": "anthropics", "licenca": "Apache-2.0",
       "instalar": "/plugin marketplace add anthropics/skills\n/plugin install example-skills@anthropic-agent-skills",
-      "claude": [
-        7,
-        4
-      ],
-      "codex": 20,
-      "pt": "Direção visual quando a tela começa do zero.",
-      "en": "Visual direction when a screen starts from scratch."
+      "pt": { "resumo": "Direção visual para telas que começam do zero", "para_que_serve": "Orienta a direção estética, a tipografia e a composição quando uma interface nasce ou muda de cara, para ela não sair com cara de template.", "quando_usar": "cria a landing page desse produto", "entrega": "Uma interface com direção visual clara e coerente." },
+      "en": { "resumo": "Visual direction for screens built from scratch", "para_que_serve": "Guides aesthetic direction, typography and composition when an interface is new or being reshaped, so it does not come out looking like a template.", "quando_usar": "build the landing page for this product", "entrega": "An interface with a clear, coherent visual direction." }
     },
     {
-      "nome": "prototype",
-      "repo": "https://github.com/emilkowalski/skills",
-      "autor": "Emil Kowalski",
-      "github": "emilkowalski",
-      "licenca": "MIT",
+      "nome": "prototype", "grupo": "design", "icone": "layers",
+      "repo": "https://github.com/emilkowalski/skills", "autor": "Emil Kowalski", "github": "emilkowalski", "licenca": "MIT",
       "instalar": "npx skills@latest add emilkowalski/skills --skill prototype",
-      "claude": [
-        3,
-        2
-      ],
-      "codex": null,
-      "pt": "Três ou quatro versões de um componente num seletor, para decidir vendo e não imaginando.",
-      "en": "Three or four versions of a component behind a picker, so the decision is made by looking."
+      "pt": { "resumo": "Versões de um componente num seletor ao vivo", "para_que_serve": "Gera versões realmente diferentes de uma peça de UI, que você alterna num seletor visual e promove a melhor. Só roda quando chamada.", "quando_usar": "/prototype três versões do card de preço", "entrega": "As variações lado a lado e a escolhida promovida." },
+      "en": { "resumo": "Versions of a component behind a live picker", "para_que_serve": "Builds genuinely different versions of a UI piece behind a visual picker, so you flip between them and promote the best one. Runs only when invoked.", "quando_usar": "/prototype three versions of the pricing card", "entrega": "The variants side by side and the chosen one promoted." }
     },
     {
-      "nome": "animate",
-      "repo": "https://github.com/emilkowalski/skills",
-      "autor": "Emil Kowalski",
-      "github": "emilkowalski",
-      "licenca": "MIT",
+      "nome": "animate", "grupo": "design", "icone": "motion",
+      "repo": "https://github.com/emilkowalski/skills", "autor": "Emil Kowalski", "github": "emilkowalski", "licenca": "MIT",
       "instalar": "npx skills@latest add emilkowalski/skills --skill animate",
-      "claude": [
-        2,
-        1
-      ],
-      "codex": 59,
-      "pt": "Decide se algo deve animar antes de decidir como.",
-      "en": "Decides whether something should animate before deciding how."
+      "pt": { "resumo": "Decide se deve animar antes de decidir como", "para_que_serve": "Constrói uma animação tomando as decisões na ordem certa: se deve animar, com que propósito, qual ferramenta, propriedades, curva, duração, interrupção e saída. Escreve a implementação.", "quando_usar": "anima a abertura desse modal", "entrega": "A animação implementada, com curva e duração justificadas." },
+      "en": { "resumo": "Decides whether to animate before deciding how", "para_que_serve": "Builds an animation by making the decisions in the right order: whether to animate, why, which tool, properties, curve, duration, interruption and exit. Writes the implementation.", "quando_usar": "animate this modal opening", "entrega": "The animation implemented, with curve and duration justified." }
     },
     {
-      "nome": "video-shotcraft",
-      "repo": "https://github.com/Vincentwei1021/video-shotcraft",
-      "autor": "Wei Yihao (Vincent Wei)",
-      "github": "Vincentwei1021",
-      "licenca": "Apache-2.0",
+      "nome": "video-shotcraft", "grupo": "video", "icone": "clapper",
+      "repo": "https://github.com/Vincentwei1021/video-shotcraft", "autor": "Wei Yihao (Vincent Wei)", "github": "Vincentwei1021", "licenca": "Apache-2.0",
       "instalar": "npx skills add Vincentwei1021/video-shotcraft",
-      "claude": null,
-      "codex": 1535,
-      "pt": "Galeria de planos e biblioteca de som que a muri-video orquestra. Entra carregada por ela.",
-      "en": "Shot gallery and sound library that muri-video orchestrates. It gets loaded through it."
+      "pt": { "resumo": "Receitas de plano, câmera 2.5D e som", "para_que_serve": "Transforma um projeto front-end em vídeo de produto com cartões de receita de plano, template validado em Remotion, telas reais, câmera 2.5D, cortes no ritmo e design de som. A muri-video usa essa skill na etapa de produção.", "quando_usar": "transforma essa landing page num vídeo de produto", "entrega": "Um vídeo de produto em Remotion feito das telas reais." },
+      "en": { "resumo": "Shot recipes, 2.5D camera and sound", "para_que_serve": "Turns a frontend project into a product video with shot recipe cards, a validated Remotion template, real screens, 2.5D camera moves, beat-synced cuts and sound design. muri-video loads it during production.", "quando_usar": "turn this landing page into a product video", "entrega": "A Remotion product video built from the real screens." }
     },
     {
-      "nome": "emil-design-eng",
-      "repo": "https://github.com/emilkowalski/skills",
-      "autor": "Emil Kowalski",
-      "github": "emilkowalski",
-      "licenca": "MIT",
+      "nome": "emil-design-eng", "grupo": "design", "icone": "bezier",
+      "repo": "https://github.com/emilkowalski/skills", "autor": "Emil Kowalski", "github": "emilkowalski", "licenca": "MIT",
       "instalar": "npx skills@latest add emilkowalski/skills --skill emil-design-eng",
-      "claude": null,
-      "codex": 64,
-      "pt": "Critério de polimento de interface e motion quando o trabalho de UI está no Codex.",
-      "en": "UI polish and motion judgment when the UI work runs in Codex."
+      "pt": { "resumo": "Os detalhes invisíveis de polimento e motion", "para_que_serve": "Traz a filosofia de Emil Kowalski sobre polimento de UI, design de componente e decisão de animação: os detalhes que fazem um software parecer bem acabado.", "quando_usar": "revisa o acabamento desse componente", "entrega": "Ajustes finos de interação, motion e componente." },
+      "en": { "resumo": "The invisible details of polish and motion", "para_que_serve": "Brings Emil Kowalski's philosophy on UI polish, component design and animation decisions: the details that make software feel well made.", "quando_usar": "review the finish on this component", "entrega": "Fine adjustments to interaction, motion and components." }
     },
     {
-      "nome": "test-driven-development",
-      "repo": "https://github.com/obra/superpowers",
-      "autor": "Jesse Vincent",
-      "github": "obra",
-      "licenca": "MIT",
+      "nome": "test-driven-development", "grupo": "engenharia", "icone": "check",
+      "repo": "https://github.com/obra/superpowers", "autor": "Jesse Vincent", "github": "obra", "licenca": "MIT",
       "instalar": "/plugin install superpowers@claude-plugins-official",
-      "claude": null,
-      "codex": 62,
-      "pt": "TDD estrito do Superpowers, o par da tdd do lado do Codex.",
-      "en": "Superpowers' strict TDD, the Codex-side counterpart of tdd."
+      "pt": { "resumo": "TDD estrito, antes de qualquer implementação", "para_que_serve": "Parte do Superpowers. Impõe a regra: nenhum código de produção sem um teste que falhou antes. Escreve o teste, vê falhar pelo motivo certo e só então escreve o mínimo para passar.", "quando_usar": "implementa o filtro por data", "entrega": "Cada mudança acompanhada do teste que a justifica." },
+      "en": { "resumo": "Strict TDD, before any implementation", "para_que_serve": "Part of Superpowers. It enforces one rule: no production code without a test that failed first. Write the test, watch it fail for the right reason, then write the minimum to pass.", "quando_usar": "implement the date filter", "entrega": "Every change paired with the test that justifies it." }
     },
     {
-      "nome": "graphify",
-      "repo": "https://github.com/Graphify-Labs/graphify",
-      "autor": "Graphify Labs",
-      "github": "Graphify-Labs",
-      "licenca": "Apache-2.0",
+      "nome": "graphify", "grupo": "planejamento", "icone": "graph",
+      "repo": "https://github.com/Graphify-Labs/graphify", "autor": "Graphify Labs", "github": "Graphify-Labs", "licenca": "Apache-2.0",
       "instalar": "uv tool install graphifyy && graphify install",
-      "claude": null,
-      "codex": 46,
-      "pt": "Pergunto ao grafo do repo antes de sair dando grep. No Claude roda pelo CLI, por isso não aparece como invocação.",
-      "en": "I ask the repo graph before grepping around. In Claude it runs through the CLI, so it never shows as an invocation."
+      "pt": { "resumo": "Grafo do repositório antes do grep", "para_que_serve": "Transforma código, docs, PDFs e mídia num grafo de conhecimento persistente, com comandos query, path e explain. O agente pergunta ao grafo antes de sair lendo arquivo por arquivo.", "quando_usar": "como o pagamento se conecta com a fila?", "entrega": "A resposta com os nós e os caminhos do grafo." },
+      "en": { "resumo": "A graph of the repo before any grep", "para_que_serve": "Turns code, docs, PDFs and media into a persistent knowledge graph with query, path and explain commands. The agent asks the graph before reading file after file.", "quando_usar": "how does payment connect to the queue?", "entrega": "The answer with the graph nodes and paths." }
     },
     {
-      "nome": "design-taste-frontend",
-      "repo": "https://github.com/Leonxlnx/taste-skill",
-      "autor": "Leonxlnx",
-      "github": "Leonxlnx",
-      "licenca": "MIT",
+      "nome": "design-taste-frontend", "grupo": "design", "icone": "eye",
+      "repo": "https://github.com/Leonxlnx/taste-skill", "autor": "Leonxlnx", "github": "Leonxlnx", "licenca": "MIT",
       "instalar": "npx skills add https://github.com/Leonxlnx/taste-skill --skill \"design-taste-frontend\"",
-      "claude": null,
-      "codex": 24,
-      "pt": "Segunda opinião contra layout com cara de template em landing page.",
-      "en": "Second opinion against template-looking layouts on landing pages."
+      "pt": { "resumo": "Contra layout com cara de template", "para_que_serve": "Skill anti-template para landing page, portfólio e redesign. Lê o briefing, infere a direção, audita antes de redesenhar e passa um checklist rígido antes de entregar.", "quando_usar": "redesenha a home sem cara de template", "entrega": "Um layout com direção própria, conferido antes da entrega." },
+      "en": { "resumo": "Against template-looking layouts", "para_que_serve": "An anti-template skill for landing pages, portfolios and redesigns. It reads the brief, infers the direction, audits before redesigning and runs a strict pre-flight check.", "quando_usar": "redesign the home page so it does not look templated", "entrega": "A layout with its own direction, checked before delivery." }
     },
     {
-      "nome": "remotion-best-practices",
-      "repo": "https://github.com/remotion-dev/skills",
-      "autor": "Remotion",
-      "github": "remotion-dev",
-      "licenca": null,
+      "nome": "remotion-best-practices", "grupo": "video", "icone": "play",
+      "repo": "https://github.com/remotion-dev/skills", "autor": "Remotion", "github": "remotion-dev", "licenca": null,
       "instalar": "npx skills add remotion-dev/skills",
-      "claude": null,
-      "codex": 16,
-      "pt": "API do Remotion quando surge uma dúvida pontual no meio de um vídeo.",
-      "en": "Remotion API answers when a specific question comes up mid-video."
+      "pt": { "resumo": "A API do Remotion na hora da dúvida", "para_que_serve": "Roteador oficial para as referências do Remotion: criar projeto e composição, boas práticas de markup e temas específicos, carregados conforme a dúvida.", "quando_usar": "como faço um mapa animado no Remotion?", "entrega": "A resposta pela referência oficial, aplicada no código." },
+      "en": { "resumo": "The Remotion API when a question comes up", "para_que_serve": "The official router to Remotion's references: creating a project and composition, markup best practices and specific topics, loaded as the question requires.", "quando_usar": "how do I make an animated map in Remotion?", "entrega": "The answer from the official reference, applied in code." }
     }
-  ],
-  "fora": {
-    "pt": "Ficaram fora da tabela: skills nativas do cliente (computer-use, claude-in-chrome, chrome-browser, dataviz, design, web-design-guidelines), skills locais ou privadas, a openspec local e o gstack (54 menções no Codex), que é um pacote de 23 ferramentas e não uma skill só.",
-    "en": "Left out of the table: skills that ship with the client (computer-use, claude-in-chrome, chrome-browser, dataviz, design, web-design-guidelines), local or private skills, the local openspec and gstack (54 Codex mentions), which is a bundle of 23 tools rather than a single skill."
-  },
-  "pipeline": [
-    {
-      "pt": [
-        "Contexto",
-        "frio"
-      ],
-      "en": [
-        "Cold",
-        "context"
-      ],
-      "aprovacao": false
-    },
-    {
-      "pt": [
-        "Briefing",
-        ""
-      ],
-      "en": [
-        "Brief",
-        ""
-      ],
-      "aprovacao": true
-    },
-    {
-      "pt": [
-        "Roteiro e",
-        "narração"
-      ],
-      "en": [
-        "Script and",
-        "voiceover"
-      ],
-      "aprovacao": true
-    },
-    {
-      "pt": [
-        "Direção",
-        "visual"
-      ],
-      "en": [
-        "Visual",
-        "direction"
-      ],
-      "aprovacao": true
-    },
-    {
-      "pt": [
-        "Storyboard",
-        ""
-      ],
-      "en": [
-        "Storyboard",
-        ""
-      ],
-      "aprovacao": true
-    },
-    {
-      "pt": [
-        "Pilotos e",
-        "cenas"
-      ],
-      "en": [
-        "Pilots and",
-        "scenes"
-      ],
-      "aprovacao": true
-    },
-    {
-      "pt": [
-        "Som",
-        ""
-      ],
-      "en": [
-        "Sound",
-        ""
-      ],
-      "aprovacao": false
-    },
-    {
-      "pt": [
-        "Render e",
-        "entrega"
-      ],
-      "en": [
-        "Render and",
-        "delivery"
-      ],
-      "aprovacao": true
-    },
-    {
-      "pt": [
-        "Revisão por",
-        "subagente"
-      ],
-      "en": [
-        "Subagent",
-        "review"
-      ],
-      "aprovacao": false
-    }
-  ],
-  "mascote": {
-    "_origem": "Pavio, o mascote dos repositórios do autor (pose feliz).",
-    "cores": {
-      "K": "#1c1424",
-      "O": "#d97757",
-      "R": "#a8452e",
-      "P": "#a78bfa",
-      "D": "#6b4fc0",
-      "W": "#f0f6fc"
-    },
-    "pixels": [
-      "................................",
-      "................................",
-      "................................",
-      ".........................P......",
-      "........................PPP.....",
-      "......S........KK........P......",
-      ".....SSS......KORK..............",
-      "......S.......KORK..............",
-      ".............KOOORK.............",
-      ".............KOWWRK.............",
-      ".............KRWWRK.............",
-      "..............KRRK..............",
-      "..........KKKKKKKKKKKK..........",
-      ".........KWWWWWWWWWWWWK.........",
-      "........KPPWPPPPPPPWPPDK........",
-      "........KPPWPPPPPPPWPPDK........",
-      "........KPPPWWPPPPPWPPDK........",
-      "........KPPPWPPPPPPPPPDK........",
-      "........KPPPPPPPPPPPPPDK........",
-      "........KPPPKKPPPPKKPPDK........",
-      "........KPPKPPKPPKPPKPDK........",
-      "......KKKPPPPPPPPPPPPPDKKK......",
-      ".....KPPPPPOPPKPPKPPOPDPPDK.....",
-      ".....KDDPPPPPPPKKPPPPDDPDDK.....",
-      "......KKKPPPPPPPPPPDDDDKKK......",
-      "........KPPPPPPPPPDDDDDK........",
-      "........KDPPPPPPDDDDDDDK........",
-      ".....KKKKKDDDDDDDDDDDDKKKKK.....",
-      "....KOOOOOKKKKKKKKKKKKOOOORK....",
-      "....KRROOOOOOOOOOOOOORRRRRRK....",
-      ".....KKRRRRRRRRRRRRRRRRRRKK.....",
-      ".......KKKKKKKKKKKKKKKKKK......."
-    ]
-  }
+  ]
 }

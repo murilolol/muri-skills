@@ -1,127 +1,191 @@
-<!-- gerado:banner -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/banner-escuro.en.svg">
-  <img src="assets/readme/banner-claro.en.svg" width="100%" alt="muri-skills · The skills I use every day with coding agents, measured from real usage. 2 own skills, 14 community skills, 403 Claude Code invocations, 640 transcripts read.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/hero-dark.en.svg">
+  <img src="assets/readme/hero-light.en.svg" width="100%" alt="muri-skills: skills that teach coding agents to ship finished work. A command palette shows /muri-video being called with the request “launch video for the app”.">
 </picture>
-<!-- /gerado:banner -->
 
 <p align="center">
   <a href="README.md">Português</a> &nbsp;·&nbsp; <b>English</b>
 </p>
 
 <p align="center">
-  <a href="#own-skills">Own skills</a> &nbsp;·&nbsp;
-  <a href="#daily-stack">Daily stack</a> &nbsp;·&nbsp;
-  <a href="#install">Install</a> &nbsp;·&nbsp;
-  <a href="#how-the-numbers-were-measured">Methodology</a> &nbsp;·&nbsp;
-  <a href="https://github.com/murilolol/muri-saver">muri-saver</a>
+  <a href="#01--muri-video">muri-video</a> &nbsp;·&nbsp;
+  <a href="#02--muri-saver">muri-saver</a> &nbsp;·&nbsp;
+  <a href="#03--curated-stack">Curated stack</a> &nbsp;·&nbsp;
+  <a href="#install">Install</a>
 </p>
 
-The skills I use every day in **Claude Code**, **Codex** and **Antigravity**. Two are mine and ship here in full. The rest belong to other authors and appear as a curated stack: link, author, license, how much I use it and why. No third-party code is copied into this repository.
+A skill is a folder with a `SKILL.md`: instructions, references and scripts that a coding agent loads by itself when the task calls for it. This repository holds the two skills I wrote and the third-party stack I use alongside them, with credit to every author.
 
-> [!NOTE]
-> The numbers come from my local transcripts, not from surveys or GitHub stars. The [methodology](#how-the-numbers-were-measured) explains the count and how to reproduce it on your machine.
+It is for people who work with **Claude Code**, **Codex** or **Antigravity** and want the agent to deliver finished work, not drafts. Install only what solves your problem.
 
-## Why this exists
+<!-- TODO: presentation video made with muri-video itself. Upload the MP4 through GitHub's web editor and paste the github.com/user-attachments/assets/<uuid> URL here, followed by an "open the video" link in <sub>. -->
 
-I audit my own agent usage. That is how [muri-saver](https://github.com/murilolol/muri-saver) started: real transcripts showed where the quota went, and every rule in the kit answers a measured finding. This repository applies the same idea to skills. Instead of a list of favorites, what gets in is what the logs say I actually call.
+## 01 · muri-video
 
-<!-- gerado:uso -->
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/uso-escuro.en.svg">
-  <img src="assets/readme/uso-claro.en.svg" width="100%" alt="What I actually call. Skill tool invocations in Claude Code · 640 transcripts, 58 projects, through 2026-11-15. muri-saver 161 (93 sessions), impeccable 98 (68 sessions), muri-video 59 (37 sessions), grill-me 26 (15 sessions), tdd 26 (15 sessions), find-skills 12 (7 sessions), agent-browser 9 (8 sessions), frontend-design 7 (4 sessions), prototype 3 (2 sessions), animate 2 (1 session).">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-video-dark.en.svg">
+  <img src="assets/readme/card-muri-video-light.en.svg" width="100%" alt="muri-video. When to use: company profile, product launch, results and data, portfolio, social video. Stages: brief, script and voice, visual direction, scenes, sound and render; all but sound stop for approval. You get: 4 MP4s in 16:9 and 9:16, with and without music, up to 4K, VTT captions; story and feed cuts and a final subagent review when requested.">
 </picture>
-<!-- /gerado:uso -->
 
-<!-- TODO: presentation video made with muri-video itself. Upload the MP4 through the GitHub web editor and paste the github.com/user-attachments/assets/<uuid> URL here, followed by the "open the video" link in <sub> and the 3×2 table of stills in assets/video/. -->
+<!-- gerado:muri-video -->
+**What it is for.** Walks the agent through a production-studio process for company, product, results or portfolio videos. It runs the brief as rounds of questions, writes the script for voiceover, proposes visual directions and a storyboard, and builds the scenes in Remotion (or HyperFrames) with 2.5D camera moves, sound and captions. Every stage marked ✋ pauses for your approval.
 
-## Own skills
+**When to use it.** Company profile · product launch · results and data · portfolio · social video. Ask like this: `muri video, make the launch video for the app`
 
-### muri-saver
+**What you get.** Four MP4s (16:9 and 9:16, with and without music, up to 4K) and VTT captions; when you ask, story and feed cuts with copy per network and a final review by a subagent.
 
-An aggressive context and quota saving mode for coding agents. Say "muri saver" and the session follows short rules: don't reread what was already read, run independent calls in parallel, text before screenshots, short sessions per topic. The mode stays on until you turn it off.
+```bash
+npx skills add murilolol/muri-skills --skill muri-video
+```
+<!-- /gerado:muri-video -->
 
-<!-- gerado:uso-muri-saver -->
-<sub>161 invocations in 93 sessions in Claude Code · 52 Codex mentions</sub>
-<!-- /gerado:uso-muri-saver -->
+<details>
+<summary>How it works, stage by stage</summary>
 
-This folder holds only the skill ([`skills/muri-saver/`](skills/muri-saver/)): `SKILL.md` plus the references for agents, auditing, delegation and memory. The full kit, with hooks, status line, context guard, live Obsidian notes and an installer, lives at **[murilolol/muri-saver](https://github.com/murilolol/muri-saver)**.
+Each ✋ is a point where the skill stops and waits for your OK.
 
-### muri-video
+0. **Cold context.** Reads memory, theme tokens, screens and where the product's data comes from.
+1. **Brief ✋.** Rounds of questions with the recommended option first, in the style of `grill-me`.
+2. **Script and voiceover ✋.** Per-scene text written for the voice; the text is approved before any TTS quota is spent.
+3. **Visual direction ✋.** Three styleframes side by side; you pick one.
+4. **Storyboard ✋.** Part, timing, what is on screen, shot and sound for each stretch.
+5. **Production ✋.** Two pilots first, with frame QA in 16:9 and 9:16; then the remaining scenes, one at a time.
+6. **Sound.** Music and effects once the picture is locked, with each sound's peak on the action's frame.
+7. **Render and delivery ✋.** Formats in parallel, audio at −16 LUFS, VTT and the four MP4s; social cuts when requested.
+8. **Final review.** A subagent reviews the film; the required fixes go in before delivery.
 
-A pipeline for narrated presentation videos: company, product, results or portfolio. The skill runs the brief in rounds, writes the script for TTS, proposes three visual directions, builds the storyboard and only then produces the scenes in Remotion (or [HyperFrames](https://github.com/heygen-com/hyperframes), by HeyGen, Apache-2.0), with music, sound effects and renders in 16:9 and 9:16, up to 4K, with and without music. At the end a subagent reviews the film before delivery.
-
-<!-- gerado:uso-muri-video -->
-<sub>59 invocations in 37 sessions in Claude Code · 1,369 Codex mentions</sub>
-<!-- /gerado:uso-muri-video -->
-
-<!-- gerado:pipeline -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/pipeline-escuro.en.svg">
-  <img src="assets/readme/pipeline-claro.en.svg" width="100%" alt="muri-video, from brief to MP4. 9 stages, 6 approval stops. No marked stage moves on without your ok. 0 Cold context, 1 Brief (✋), 2 Script and voiceover (✋), 3 Visual direction (✋), 4 Storyboard (✋), 5 Pilots and scenes (✋), 6 Sound, 7 Render and delivery (✋), 8 Subagent review.">
-</picture>
-<!-- /gerado:pipeline -->
-
-What ships in [`skills/muri-video/`](skills/muri-video/):
+**Engine.** Remotion by default, for long, narration-driven, data-heavy videos. [HyperFrames](https://github.com/heygen-com/hyperframes) (HeyGen, Apache-2.0) for short pieces in HTML and GSAP; its skills are enabled inside the project only.
 
 | Path | What it is |
 |---|---|
 | `SKILL.md` | Flow, golden rules and tools |
-| `references/` | Brief, voiceover, motion, Remotion, HyperFrames, sound, render, promo pieces, review and lessons learned |
-| `cli/muri.mjs` | The `muri` CLI: `novo`, `versao`, `status`, `entregar`, `arquivar`, `retomar`. Each version is a worktree and is never overwritten. Tests with `node --test` in `cli/` |
-| `scripts/` | Standalone project from the template, and HyperFrames skills enabled only inside the project |
-| `ferramentas/` | QA contact sheets, audio sync and level analysis, real-screen capture at 2× |
-| `template/hyperframes/` | Base composition for short pieces in HTML and GSAP |
+| `references/` | Brief, voiceover, motion, Remotion, HyperFrames, sound, render, social cuts, review and lessons learned |
+| `cli/muri.mjs` | The `muri` CLI: `novo`, `versao`, `status`, `entregar`, `arquivar`, `retomar`. Each version is a worktree and is never overwritten |
+| `scripts/` | A standalone project from the template, and per-project activation of the HyperFrames skills |
+| `ferramentas/` | QA contact sheets, audio sync and level analysis, 2× captures of real screens |
+| `template/hyperframes/` | Base composition for short pieces |
+
+**Requirements.** Node 18+, FFmpeg and whisper-cpp (`brew install ffmpeg whisper-cpp`); Python 3.11 for local voiceover (`pip3 install kokoro-onnx soundfile transformers torch numpy`). The skill's text is in Portuguese; agents follow it in any language.
 
 > [!IMPORTANT]
-> The Remotion scenes come from a separate template repository that is not public yet. Without it, `muri novo` and `scripts/novo-projeto.sh` stop with "Template não encontrado". Point `MURI_VIDEO_REPO` at your own Remotion repository (branch `main`) or use the HyperFrames engine, which works with this folder alone.
+> The Remotion scenes come from a template of my own that is not public yet. Without it, `muri novo` stops with "Template não encontrado": point `MURI_VIDEO_REPO` at a Remotion repository of yours (branch `main`) or use the HyperFrames engine, which works with this folder alone.
 
-The skill text is in Portuguese. Requirements: Node 18+, FFmpeg, whisper-cpp and Python 3.11 for local voiceover (`brew install ffmpeg whisper-cpp` and `pip3 install kokoro-onnx soundfile transformers torch numpy`). Optional: the Orca app (`MURI_ORCA_BIN`) to list each version as a worktree; without it the CLI only warns and carries on. muri-video orchestrates `video-shotcraft`, `remotion-best-practices` and `grill-me`, listed in the stack below.
+</details>
 
-## Daily stack
+## 02 · muri-saver
 
-Skills by other authors that show up in my logs, sorted by Claude Code invocations, then by Codex mentions. Each keeps its original license; install it with the author's command.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-saver-dark.en.svg">
+  <img src="assets/readme/card-muri-saver-light.en.svg" width="100%" alt="muri-saver. A context gauge shows the session in the lean zone with the skill, and bloating without it. With the full kit, a diagram shows you asking and approving, your agent planning and reviewing, Gemini on sweeps and summaries and Codex on review and code. Rules: one session per topic, no rereading, text before images, batched calls, direct answers and quality is never traded away.">
+</picture>
 
-<!-- gerado:stack -->
-| Skill | Author | License | Claude Code¹ | Codex² | Why it is here |
-|---|---|---|---|---|---|
-| [`impeccable`](https://github.com/pbakaus/impeccable) | [Paul Bakaus](https://github.com/pbakaus) | Apache-2.0 | 98 in 68 sessions | 672 mentions | Critique and polish of every screen before it ships. The third-party skill I call most. |
-| [`grill-me`](https://github.com/mattpocock/skills) | [Matt Pocock](https://github.com/mattpocock) | MIT | 26 in 15 sessions | 11 mentions | Before any big plan: rounds of questions until nothing is left open. muri-video asks the same way. |
-| [`tdd`](https://github.com/mattpocock/skills) | [Matt Pocock](https://github.com/mattpocock) | MIT | 26 in 15 sessions | 10 mentions | Bugs and features start from a failing test, with integration tests instead of mocks. |
-| [`find-skills`](https://github.com/vercel-labs/skills) | [Vercel Labs](https://github.com/vercel-labs) | MIT | 12 in 7 sessions | — | Before writing a skill, I check whether someone already has. |
-| [`agent-browser`](https://github.com/vercel-labs/agent-browser) | [Vercel Labs](https://github.com/vercel-labs) | Apache-2.0 | 9 in 8 sessions | 29 mentions | Test the app in a real browser without leaving the terminal. Needs the agent-browser CLI. |
-| [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design) | [Anthropic](https://github.com/anthropics) | Apache-2.0 | 7 in 4 sessions | 20 mentions | Visual direction when a screen starts from scratch. |
-| [`prototype`](https://github.com/emilkowalski/skills) | [Emil Kowalski](https://github.com/emilkowalski) | MIT | 3 in 2 sessions | — | Three or four versions of a component behind a picker, so the decision is made by looking. |
-| [`animate`](https://github.com/emilkowalski/skills) | [Emil Kowalski](https://github.com/emilkowalski) | MIT | 2 in 1 session | 59 mentions | Decides whether something should animate before deciding how. |
-| [`video-shotcraft`](https://github.com/Vincentwei1021/video-shotcraft) | [Wei Yihao (Vincent Wei)](https://github.com/Vincentwei1021) | Apache-2.0 | — | 1,535 mentions | Shot gallery and sound library that muri-video orchestrates. It gets loaded through it. |
-| [`emil-design-eng`](https://github.com/emilkowalski/skills) | [Emil Kowalski](https://github.com/emilkowalski) | MIT | — | 64 mentions | UI polish and motion judgment when the UI work runs in Codex. |
-| [`test-driven-development`](https://github.com/obra/superpowers) | [Jesse Vincent](https://github.com/obra) | MIT | — | 62 mentions | Superpowers' strict TDD, the Codex-side counterpart of tdd. |
-| [`graphify`](https://github.com/Graphify-Labs/graphify) | [Graphify Labs](https://github.com/Graphify-Labs) | Apache-2.0 | — | 46 mentions | I ask the repo graph before grepping around. In Claude it runs through the CLI, so it never shows as an invocation. |
-| [`design-taste-frontend`](https://github.com/Leonxlnx/taste-skill) | [Leonxlnx](https://github.com/Leonxlnx) | MIT | — | 24 mentions | Second opinion against template-looking layouts on landing pages. |
-| [`remotion-best-practices`](https://github.com/remotion-dev/skills) | [Remotion](https://github.com/remotion-dev) | no license file | — | 16 mentions | Remotion API answers when a specific question comes up mid-video. |
+<!-- gerado:muri-saver -->
+**What it is for.** A mode that stays on for the whole conversation and changes how the agent works. It searches before reading, never rereads what is already in context, batches independent calls, prefers page text to a screenshot and suggests a new session when the topic changes. With the full kit, mechanical work goes to another quota (Gemini sweeps and summarizes, Codex reviews and implements with your OK) and the handoff between sessions is automatic.
 
-<sub>¹ Skill tool invocations, and in how many sessions.<br>² Mentions of the skill's paths in Codex logs. Every file read inflates it, so read it as an order of magnitude, not against Claude.<br>Left out of the table: skills that ship with the client (computer-use, claude-in-chrome, chrome-browser, dataviz, design, web-design-guidelines), local or private skills, the local openspec and gstack (54 Codex mentions), which is a bundle of 23 tools rather than a single skill.</sub>
-<!-- /gerado:stack -->
+**When to use it.** Long, slow session · agent rereading files · quota running out early · heavy mechanical task. Ask like this: `muri saver`
 
-## Install
-
-**Own skills.** Copy the skill folder into your agent's skills directory:
+**What you get.** Direct answers, fewer repeated reads and sessions that end at the right time, so the plan quota lasts the week. No needed test is skipped and no requirement is dropped to save tokens.
 
 ```bash
-git clone https://github.com/murilolol/muri-skills.git
-for s in muri-saver muri-video; do
-  cp -R muri-skills/skills/$s ~/.claude/skills/   # Claude Code reads ~/.claude/skills
-  cp -R muri-skills/skills/$s ~/.agents/skills/   # Codex, Antigravity and others read ~/.agents/skills
-done
+npx skills add murilolol/muri-skills --skill muri-saver
 ```
+<!-- /gerado:muri-saver -->
 
-To use the muri-video CLI as `muri`: `ln -s "$PWD/muri-skills/skills/muri-video/cli/muri.mjs" ~/.local/bin/muri`. Videos go to `~/videos/muri-video` by default; change it with `MURI_ORCA_RAIZ`.
+Turn it on with `muri saver`; it stays on until you say `sair do muri-saver` or simply ask to turn it off. This folder holds the skill and its rules; delegation and the automatic handoff come with the **[full kit](https://github.com/murilolol/muri-saver)**, which has the hooks, the context guard, the status line, the Gemini and Codex delegate and the installer.
 
-**Third-party stack.** Use each author's official command:
+<details>
+<summary>Rules, delegation and per-task profiles</summary>
+
+**Rules that stay on**
+
+- Answers with no preamble and no recap; no repeating code or output already shown.
+- Search before reading, read the excerpt, never reread a file that is already in context.
+- Independent calls go out together; tool schemas are loaded once.
+- Never switches models on its own; a mechanical task at high effort becomes a one-sentence suggestion.
+- Task done and an unrelated new request: suggests a new session; with the kit, the handoff is automatic.
+- Never skips a needed test, drops a requirement or stops early to save tokens.
+
+**Who does what** (with the full kit)
+
+| Task | Who |
+|---|---|
+| Wide sweep, "how does X work", log summary, research, doc draft | Gemini |
+| Code review, second opinion | Codex, read-only |
+| Well-specified implementation, boilerplate, mass refactor, tests | Codex with write access, after your OK |
+| Architecture, ambiguous decisions, final diff review, conversation | your agent |
+
+**Profiles.** Backend, frontend, browser and QA, docs, git, debug, scaffold and refactor each have their own rules in the [`SKILL.md`](skills/muri-saver/SKILL.md).
+
+</details>
+
+## 03 · Curated stack
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack-dark.en.svg">
+  <img src="assets/readme/stack-light.en.svg" width="100%" alt="Curated stack, grouped by what it solves: Design & UI (impeccable, frontend-design, prototype, animate, emil-design-eng, design-taste-frontend), Planning (grill-me, graphify), Engineering (tdd, test-driven-development), Automation (find-skills, agent-browser) and Video (video-shotcraft, remotion-best-practices).">
+</picture>
+
+Skills by other authors that work alongside mine. None of their code is copied here: each keeps its original license and is installed with the author's own command.
+
+<!-- gerado:stack -->
+<details>
+<summary><b>Design & UI</b> · impeccable, frontend-design, prototype, animate, emil-design-eng, design-taste-frontend</summary>
+
+| Skill | What it is for | Ask like this |
+|---|---|---|
+| [`impeccable`](https://github.com/pbakaus/impeccable)<br><sub>[Paul Bakaus](https://github.com/pbakaus) · Apache-2.0</sub> | A design kit for the agent: critique, audit, polish, typography, color, layout, motion and accessibility for web screens. It points out what looks generic and fixes it.<br><sub>You get: A prioritized diagnosis and the adjusted screen.</sub> | <sub>“critique this screen before I ship it”</sub> |
+| [`frontend-design`](https://github.com/anthropics/skills/tree/main/skills/frontend-design)<br><sub>[Anthropic](https://github.com/anthropics) · Apache-2.0</sub> | Guides aesthetic direction, typography and composition when an interface is new or being reshaped, so it does not come out looking like a template.<br><sub>You get: An interface with a clear, coherent visual direction.</sub> | <sub>“build the landing page for this product”</sub> |
+| [`prototype`](https://github.com/emilkowalski/skills)<br><sub>[Emil Kowalski](https://github.com/emilkowalski) · MIT</sub> | Builds genuinely different versions of a UI piece behind a visual picker, so you flip between them and promote the best one. Runs only when invoked.<br><sub>You get: The variants side by side and the chosen one promoted.</sub> | <sub>“/prototype three versions of the pricing card”</sub> |
+| [`animate`](https://github.com/emilkowalski/skills)<br><sub>[Emil Kowalski](https://github.com/emilkowalski) · MIT</sub> | Builds an animation by making the decisions in the right order: whether to animate, why, which tool, properties, curve, duration, interruption and exit. Writes the implementation.<br><sub>You get: The animation implemented, with curve and duration justified.</sub> | <sub>“animate this modal opening”</sub> |
+| [`emil-design-eng`](https://github.com/emilkowalski/skills)<br><sub>[Emil Kowalski](https://github.com/emilkowalski) · MIT</sub> | Brings Emil Kowalski's philosophy on UI polish, component design and animation decisions: the details that make software feel well made.<br><sub>You get: Fine adjustments to interaction, motion and components.</sub> | <sub>“review the finish on this component”</sub> |
+| [`design-taste-frontend`](https://github.com/Leonxlnx/taste-skill)<br><sub>[Leonxlnx](https://github.com/Leonxlnx) · MIT</sub> | An anti-template skill for landing pages, portfolios and redesigns. It reads the brief, infers the direction, audits before redesigning and runs a strict pre-flight check.<br><sub>You get: A layout with its own direction, checked before delivery.</sub> | <sub>“redesign the home page so it does not look templated”</sub> |
+
+</details>
+
+<details>
+<summary><b>Planning</b> · grill-me, graphify</summary>
+
+| Skill | What it is for | Ask like this |
+|---|---|---|
+| [`grill-me`](https://github.com/mattpocock/skills)<br><sub>[Matt Pocock](https://github.com/mattpocock) · MIT</sub> | The agent interviews you about every decision in a plan until you both reach the same understanding. Useful for a big request that still has loose ends. Runs only when invoked.<br><sub>You get: An unambiguous plan with the decisions written down.</sub> | <sub>“/grill-me on this plan before we start”</sub> |
+| [`graphify`](https://github.com/Graphify-Labs/graphify)<br><sub>[Graphify Labs](https://github.com/Graphify-Labs) · Apache-2.0</sub> | Turns code, docs, PDFs and media into a persistent knowledge graph with query, path and explain commands. The agent asks the graph before reading file after file.<br><sub>You get: The answer with the graph nodes and paths.</sub> | <sub>“how does payment connect to the queue?”</sub> |
+
+</details>
+
+<details>
+<summary><b>Engineering</b> · tdd, test-driven-development</summary>
+
+| Skill | What it is for | Ask like this |
+|---|---|---|
+| [`tdd`](https://github.com/mattpocock/skills)<br><sub>[Matt Pocock](https://github.com/mattpocock) · MIT</sub> | Drives features and bug fixes through red-green-refactor in vertical slices. Tests check behavior through the public interface, not implementation details.<br><sub>You get: Code covered by tests that survive refactoring.</sub> | <sub>“fix this bug starting from a test”</sub> |
+| [`test-driven-development`](https://github.com/obra/superpowers)<br><sub>[Jesse Vincent](https://github.com/obra) · MIT</sub> | Part of Superpowers. It enforces one rule: no production code without a test that failed first. Write the test, watch it fail for the right reason, then write the minimum to pass.<br><sub>You get: Every change paired with the test that justifies it.</sub> | <sub>“implement the date filter”</sub> |
+
+</details>
+
+<details>
+<summary><b>Automation</b> · find-skills, agent-browser</summary>
+
+| Skill | What it is for | Ask like this |
+|---|---|---|
+| [`find-skills`](https://github.com/vercel-labs/skills)<br><sub>[Vercel Labs](https://github.com/vercel-labs) · MIT</sub> | When an "is there a skill for this?" comes up, it searches the open skills ecosystem and shows how to install the one that fits.<br><sub>You get: The options found, with the install command.</sub> | <sub>“is there a skill for accessibility reviews?”</sub> |
+| [`agent-browser`](https://github.com/vercel-labs/agent-browser)<br><sub>[Vercel Labs](https://github.com/vercel-labs) · Apache-2.0</sub> | Teaches the agent to use the agent-browser CLI to open pages, click, fill forms and read the screen. Good for testing the real app and exploratory QA. Needs the CLI installed.<br><sub>You get: The flow run end to end, with what broke and the evidence.</sub> | <sub>“open the local app and test the sign-up flow”</sub> |
+
+</details>
+
+<details>
+<summary><b>Video</b> · video-shotcraft, remotion-best-practices</summary>
+
+| Skill | What it is for | Ask like this |
+|---|---|---|
+| [`video-shotcraft`](https://github.com/Vincentwei1021/video-shotcraft)<br><sub>[Wei Yihao (Vincent Wei)](https://github.com/Vincentwei1021) · Apache-2.0</sub> | Turns a frontend project into a product video with shot recipe cards, a validated Remotion template, real screens, 2.5D camera moves, beat-synced cuts and sound design. muri-video loads it during production.<br><sub>You get: A Remotion product video built from the real screens.</sub> | <sub>“turn this landing page into a product video”</sub> |
+| [`remotion-best-practices`](https://github.com/remotion-dev/skills)<br><sub>[Remotion](https://github.com/remotion-dev) · no license file</sub> | The official router to Remotion's references: creating a project and composition, markup best practices and specific topics, loaded as the question requires.<br><sub>You get: The answer from the official reference, applied in code.</sub> | <sub>“how do I make an animated map in Remotion?”</sub> |
+
+</details>
+<!-- /gerado:stack -->
 
 <!-- gerado:instalar -->
 <details>
-<summary>Install command for every stack skill</summary>
+<summary>Install commands for every skill in the stack</summary>
 
 ```bash
 # impeccable (Paul Bakaus, Apache-2.0)
@@ -171,28 +235,29 @@ npx skills add remotion-dev/skills
 </details>
 <!-- /gerado:instalar -->
 
-## How the numbers were measured
+## Install
 
-- **Claude Code:** every `tool_use` block of the `Skill` tool in the local transcripts (`~/.claude/projects/**/*.jsonl`) counts as one invocation. Sessions are the transcripts with at least one invocation of that skill.
-- **Codex:** every `<skill>/` path in the `~/.codex/sessions` logs counts as one mention. File reads inside the skill count too, which is why a large skill like `video-shotcraft` shows thousands of mentions. Read it as an order of magnitude, not against Claude.
-- **Antigravity:** not part of this measurement.
-- **Left out of the table:** skills that ship with the client, local skills with no verified upstream, and any private skill.
-- **Upstream:** repository, author, license and install command for each skill were checked on GitHub on the measurement date.
-
-To reproduce in Claude Code:
+**With the skills CLI** (it detects the agents installed on your machine):
 
 ```bash
-find ~/.claude/projects -name '*.jsonl' \
-  -exec grep -oh '"name":"Skill","input":{"skill":"[^"]*"' {} + \
-  | sed 's/.*"skill":"//; s/"$//' | sort | uniq -c | sort -rn
+npx skills add murilolol/muri-skills                      # lists both and asks
+npx skills add murilolol/muri-skills --skill muri-video   # just one
 ```
 
-Every number in the READMEs, the banner and the charts comes from one file, [`assets/readme/dados.json`](assets/readme/dados.json). `npm run build` regenerates the 12 SVGs (light and dark, Portuguese and English) and rewrites the generated parts of both READMEs; the script checks the data before writing.
+**By hand:** copy the skill folder into the directory your agent reads.
+
+```bash
+git clone https://github.com/murilolol/muri-skills.git
+cp -R muri-skills/skills/muri-video ~/.claude/skills/   # Claude Code
+cp -R muri-skills/skills/muri-video ~/.agents/skills/   # Codex, Antigravity and others
+```
+
+To use the muri-video CLI as `muri`: `ln -s "$PWD/muri-skills/skills/muri-video/cli/muri.mjs" ~/.local/bin/muri`. Videos live in `~/videos/muri-video`; change it with `MURI_ORCA_RAIZ`.
 
 ## License and credits
 
-The own skills (`skills/muri-saver` and `skills/muri-video`) and the scripts in this repository are MIT licensed ([`LICENSE`](LICENSE)). The stack skills are not distributed here and keep each author's license: [Paul Bakaus](https://github.com/pbakaus), [Matt Pocock](https://github.com/mattpocock), [Emil Kowalski](https://github.com/emilkowalski), [Vercel Labs](https://github.com/vercel-labs), [Anthropic](https://github.com/anthropics), [Jesse Vincent](https://github.com/obra), [Graphify Labs](https://github.com/Graphify-Labs), [Wei Yihao (Vincent Wei)](https://github.com/Vincentwei1021), [Leonxlnx](https://github.com/Leonxlnx) and [Remotion](https://github.com/remotion-dev). The [HyperFrames](https://github.com/heygen-com/hyperframes) engine, which muri-video enables per project, is by [HeyGen](https://github.com/heygen-com) (Apache-2.0).
+The original skills (`skills/muri-saver` and `skills/muri-video`) and the scripts in this repository are MIT-licensed ([`LICENSE`](LICENSE)). The stack skills are not distributed here and keep each author's license, listed above. The [HyperFrames](https://github.com/heygen-com/hyperframes) engine, which muri-video enables per project, belongs to [HeyGen](https://github.com/heygen-com) (Apache-2.0).
 
-Made by [@murilolol](https://github.com/murilolol).
+Made by [Murilo Silva](https://github.com/murilolol).
 
-<sub>The banner and charts are generated from <a href="assets/readme/dados.json">assets/readme/dados.json</a> by <a href="tools/build-assets.mjs">tools/build-assets.mjs</a>. The mascot is Pavio, the same one as in muri-saver.</sub>
+<sub>The images and tables on this page are generated from <a href="assets/readme/dados.json">assets/readme/dados.json</a> by <a href="tools/build-assets.mjs">tools/build-assets.mjs</a> (<code>npm run build</code>). Typeface: Geist and Geist Mono, SIL Open Font License 1.1.</sub>
