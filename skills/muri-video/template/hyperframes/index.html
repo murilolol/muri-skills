@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;800&display=swap" rel="stylesheet" />
+    <style>
+      :root { --apoio: #6b655c; --destaque: #a8452e; --tinta: #1c1a17; --claro: #faf8f5; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--claro); }
+      #root { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: Manrope, sans-serif; }
+      #marca { font-size: 220px; letter-spacing: -0.05em; color: var(--tinta); }
+      #marca b { font-weight: 800; } #marca span { font-weight: 300; }
+      #ponto { display: inline-block; width: 34px; height: 34px; background: var(--destaque); margin-left: 8px; }
+      #regua { width: 760px; height: 5px; background: var(--apoio); margin-top: 28px; transform-origin: center; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="4" data-width="1920" data-height="1080">
+      <div id="grupo" class="clip" data-start="0" data-duration="4" data-track-index="0" style="display:flex;flex-direction:column;align-items:center">
+        <h1 id="marca"><b>Sua</b><span>Marca</span><i id="ponto"></i></h1>
+        <div id="regua"></div>
+      </div>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#marca", { opacity: 0, scale: 1.4, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 0.2);
+      tl.fromTo("#ponto", { scale: 0 }, { scale: 1, duration: 0.4, ease: "back.out(3)" }, 0.9);
+      tl.fromTo("#regua", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 1.1);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

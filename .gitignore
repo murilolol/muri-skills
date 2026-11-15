@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+# Segredos: nunca comitar
+.env
+.env.*
+
+node_modules/
+.ai-memory
+.impeccable
+*.log
+*.zip
+
+__pycache__/
+*.pyc
