@@ -39,20 +39,15 @@ function T(x, y, s, { size = 14, w = 400, fill, anchor, mono = false, ls = 0, ma
 // ---------- temas: escuro quente e papel claro, acento do Pavio (lilás → terracota) ----------
 // bg é a cor da página do GitHub: o SVG não pinta fundo, só o anel do check e o miolo do medidor usam bg.
 // a2t é o acento escurecido para texto pequeno (contraste ≥ 4.5:1); a2 fica para gráficos.
-const TEMAS = {
-  dark: {
-    bg: '#0d1117', text: '#F5F2EF', soft: '#C4BDB7', muted: '#8F8781', faint: '#8F8781', a2t: '#E0825F',
-    glass: '#FFFFFF', glassA: [0.04, 0.015], line: '#FFFFFF', lineA: 0.09, lineTop: 0.22, chipA: 0.05,
-    a1: '#A78BFA', a2: '#E0825F', glowA: 0.30, titleA: '#FFFFFF', titleB: '#9C948E', iconStroke: '#ECE7E3',
-    screen: '#16131A', ink: '#FFFFFF', selA: 0.11, shadow: false, dot: 0.07,
-  },
-  light: {
-    bg: '#ffffff', text: '#1C1714', soft: '#463F3A', muted: '#6E665F', faint: '#7A716A', a2t: '#A9472B',
-    glass: '#FFFFFF', glassA: [1, 1], line: '#2A1E14', lineA: 0.1, lineTop: 0.06, chipA: 0.035,
-    a1: '#6B4FC0', a2: '#C2593A', glowA: 0.13, titleA: '#1C1714', titleB: '#5E5650', iconStroke: '#2B2522',
-    screen: '#F2EEE9', ink: '#2A1E14', selA: 0.07, shadow: true, dot: 0.08,
-  },
+// Paleta do vídeo de apresentação (direção C · marca-texto): papel, tinta e o amarelo só como faixa (hl).
+// O card pinta o próprio fundo, então é o mesmo no tema claro e no escuro do GitHub.
+const PAPEL = {
+  bg: '#F5F3EF', text: '#111111', soft: '#3A3835', muted: '#6F6B64', faint: '#6F6B64', a2t: '#111111',
+  glass: '#F5F3EF', glassA: [1, 1], line: '#111111', lineA: 0.13, lineTop: 0.13, chipA: 0.04,
+  a1: '#111111', a2: '#111111', glowA: 0, titleA: '#111111', titleB: '#111111', iconStroke: '#111111',
+  screen: '#ECE9E3', ink: '#111111', selA: 1, shadow: false, flat: true, dot: 0, hl: '#FFD60A', term: '#110F14', termText: '#F5F3EF',
 };
+const TEMAS = { dark: PAPEL, light: PAPEL };
 
 // ---------- ícones desenhados para este repo, grade de 24 px ----------
 const I = {
@@ -106,7 +101,7 @@ ${css}
 <linearGradient id="accH" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${t.a1}"/><stop offset="1" stop-color="${t.a2}"/></linearGradient>
 <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t.line}" stop-opacity="${t.lineTop}"/><stop offset=".35" stop-color="${t.line}" stop-opacity="${t.lineA}"/><stop offset="1" stop-color="${t.line}" stop-opacity="${r1(t.lineA * 6) / 10}"/></linearGradient>
 <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${t.glass}" stop-opacity="${t.glassA[0]}"/><stop offset="1" stop-color="${t.glass}" stop-opacity="${t.glassA[1]}"/></linearGradient>
-<linearGradient id="hl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${t.line}" stop-opacity="0"/><stop offset=".5" stop-color="${t.line}" stop-opacity="${t.shadow ? 0 : 0.35}"/><stop offset="1" stop-color="${t.line}" stop-opacity="0"/></linearGradient>
+<linearGradient id="hl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${t.line}" stop-opacity="0"/><stop offset=".5" stop-color="${t.line}" stop-opacity="${t.shadow || t.flat ? 0 : 0.35}"/><stop offset="1" stop-color="${t.line}" stop-opacity="0"/></linearGradient>
 <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="11" cy="11" r="1" fill="${t.ink}" fill-opacity="${t.dot}"/></pattern>
 <filter id="sh" x="-20%" y="-30%" width="140%" height="160%"><feDropShadow dx="0" dy="${t.shadow ? 6 : 0}" stdDeviation="${t.shadow ? 10 : 0}" flood-color="#3A2A1E" flood-opacity="${t.shadow ? 0.07 : 0}"/></filter>
 ${defs}
@@ -212,6 +207,7 @@ function hero(mode, lang) {
   const [a, b, em, c] = l.lema;
   left += T(lx, 266, a, { size: 26, fill: t.soft, ls: -0.3, max: lmax - lx });
   if (tw(b + em + c, 26, 500) > lmax - lx) throw new Error('lema largo demais');
+  left += `<rect x="${r1(lx + tw(b, 26, 400, false, -0.3) - 2)}" y="289" width="${r1(tw(em, 26, 600, false, -0.3) + 4)}" height="13" fill="${t.hl}"/>`;
   left += `<text x="${lx}" y="300" font-size="26" letter-spacing="-.3" fill="${t.soft}">${esc(b)}<tspan fill="${t.text}" font-weight="600">${esc(em)}</tspan>${esc(c)}</text>`;
   l.indice.forEach(([n, nome, desc], i) => {
     const y = 366 + i * 36;
@@ -231,7 +227,7 @@ function hero(mode, lang) {
   let list = '';
   l.paleta.forEach(([ic, name, desc], i) => {
     const ry = py + 80 + i * rowH, sel = i === 0, rh = rowH - 4;
-    if (sel) list += `<rect x="${px + 10}" y="${ry}" width="${pw - 20}" height="${rh}" rx="12" fill="${t.a1}" fill-opacity="${t.selA}"/><rect x="${px + 10.5}" y="${ry + 0.5}" width="${pw - 21}" height="${rh - 1}" rx="11.5" fill="none" stroke="url(#accH)" stroke-opacity=".6"/><g clip-path="url(#selc)"><rect class="sweep" x="${px - 200}" y="${ry}" width="200" height="${rh}" fill="url(#sweep)"/></g>`;
+    if (sel) list += `<rect x="${px + 10}" y="${ry}" width="${pw - 20}" height="${rh}" rx="12" fill="${t.hl}" fill-opacity="${t.selA}"/><rect x="${px + 10.5}" y="${ry + 0.5}" width="${pw - 21}" height="${rh - 1}" rx="11.5" fill="none" stroke="url(#accH)" stroke-opacity=".6"/><g clip-path="url(#selc)"><rect class="sweep" x="${px - 200}" y="${ry}" width="200" height="${rh}" fill="url(#sweep)"/></g>`;
     list += tile(ic, px + 22, ry + 10, 38, t, sel);
     list += T(px + 74, ry + 35, name, { size: 18, w: 600, fill: t.text });
     list += T(px + 190, ry + 35, desc, { size: 16, fill: sel ? t.soft : t.muted, max: pw - 190 - (sel ? 62 : 22) });
@@ -240,7 +236,8 @@ function hero(mode, lang) {
   const qx = px + 58, cmd = '/muri-video';
   const caretX = qx + tw(cmd, 18, 500, true) + 10 + tw(l.busca, 18) + 2;
   if (caretX > px + pw - 20) throw new Error('busca da paleta estoura');
-  const body = `<rect width="${W}" height="${H}" fill="url(#g1)" class="breathe"/>
+  const body = `${card(FX, FX, W - 2 * FX, H - 2 * FX, FR)}
+<rect width="${W}" height="${H}" fill="url(#g1)" class="breathe"/>
 <rect width="${W}" height="${H}" fill="url(#g2)"/>
 <rect width="${W}" height="${H}" fill="url(#dots)" mask="url(#dm)"/>
 ${left}
@@ -260,15 +257,16 @@ ${T(px + pw - 22, py + ph - 18, l.rodapePaleta[1], { size: LBL, mono: true, fill
 // ---------- cabeçalho comum dos cards autorais (devolve o svg e o y onde ele termina) ----------
 function cabecalho(s, c, t, l, chamar) {
   let o = tile(s.icone, CX, 64, 64, t, true);
+  o += `<rect x="${CX + 82}" y="86" width="${r1(tw(s.nome, 40, 700, false, -1.3) + 6)}" height="17" fill="${t.hl}"/>`;
   o += T(CX + 84, 100, s.nome, { size: 40, w: 700, ls: -1.3, fill: t.text });
   o += pill(CX + 84 + tw(s.nome, 40, 700, false, -1.3) + 18, 74, `${s.num} · ${l.autoral}`, t, { size: 14, h: 30, accent: true, mono: true }).svg;
   // caixa "como chamar" com cursor piscando
   const bw = Math.round(tw(chamar, 19, 400, true) + 68), bx = CR - bw;
   o += T(CX + 84, 136, c.resumo, { size: 20, fill: t.soft, max: bx - 24 - CX - 84 });
   o += label(CR, 74, l.comoChamar, t, { anchor: 'end' });
-  o += `<rect x="${bx}" y="88" width="${bw}" height="48" rx="12" fill="${t.screen}" stroke="url(#accH)" stroke-opacity=".55"/>`;
-  o += `<path d="M${bx + 18} 105l7 7-7 7" fill="none" stroke="${t.a2}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>` + T(bx + 38, 119, chamar, { size: 19, mono: true, fill: t.text });
-  o += `<rect class="caret" x="${r1(bx + 38 + tw(chamar, 19, 400, true) + 3)}" y="101" width="10" height="22" rx="1.5" fill="${t.a2}"/>`;
+  o += `<rect x="${bx}" y="88" width="${bw}" height="48" rx="12" fill="${t.term}"/>`;
+  o += `<path d="M${bx + 18} 105l7 7-7 7" fill="none" stroke="${t.hl}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>` + T(bx + 38, 119, chamar, { size: 19, mono: true, fill: t.termText });
+  o += `<rect class="caret" x="${r1(bx + 38 + tw(chamar, 19, 400, true) + 3)}" y="101" width="10" height="22" rx="1.5" fill="${t.hl}"/>`;
   // quando usar: rótulo + chips (podem quebrar em duas linhas)
   const cx0 = CX + lw(l.quando) + 24, ch = chips(cx0, 174, c.chips_quando, CR, t, { size: 16, h: 36 });
   o += label(CX, 198, l.quando, t) + ch.svg;
@@ -480,7 +478,7 @@ function designCard(mode, lang) {
   const ry = py + ph + 60, rowH = 104, cols = 3, rows = Math.ceil(c.regras.length / cols);
   const fy = ry + 24 + rows * rowH + 40, H = fy + 38 + FX;
   const defs = `${glow('g1', t.a1, t.glowA, 160, H, 560, 320)}${glow('g2', t.a2, r1(t.glowA * 4) / 10, 1120, 0, 520, 240)}
-<linearGradient id="ruim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.a1}" stop-opacity=".55"/><stop offset="1" stop-color="${t.a2}" stop-opacity=".55"/></linearGradient>`;
+<linearGradient id="ruim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA" stop-opacity=".75"/><stop offset="1" stop-color="#E0825F" stop-opacity=".75"/></linearGradient>`;
   const css = `${caretCss}
 .mk{animation:mk 5s cubic-bezier(.6,0,.3,1) infinite;transform-box:fill-box;transform-origin:left}@keyframes mk{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.82)}}`;
   const mh = ph - 60 - 28 - 34;
@@ -493,7 +491,7 @@ function designCard(mode, lang) {
       // base lisa, título com uma faixa de acento, tela real escura com selo
       o += `<rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="${t.screen}" stroke="${t.line}" stroke-opacity="${r1(t.lineA * 12) / 10}"/>`;
       o += `<rect x="${mx + 22}" y="${my + 22}" width="${r1(mw * 0.5)}" height="14" rx="3" fill="${t.ink}" fill-opacity=".78"/>`;
-      o += `<rect class="mk" x="${mx + 22}" y="${my + 44}" width="${r1(mw * 0.36)}" height="14" rx="3" fill="${t.a2}"/>`;
+      o += `<rect class="mk" x="${mx + 22}" y="${my + 44}" width="${r1(mw * 0.36)}" height="14" rx="3" fill="${t.hl}"/>`;
       const sy = my + 74, sh = mh - 74 - 38;
       o += `<rect x="${mx + 22}" y="${sy}" width="${mw - 44}" height="${sh}" rx="8" fill="${t.shadow ? '#16131A' : '#08070A'}" stroke="${t.line}" stroke-opacity="${t.shadow ? 0 : 0.18}"/>`;
       [[0.42, 0.55], [0.6, 0.3], [0.34, 0.3]].forEach(([f, op], k) => { o += `<rect x="${mx + 38}" y="${sy + 16 + k * 16}" width="${r1((mw - 76) * f)}" height="6" rx="3" fill="#F5F2EF" fill-opacity="${op}"/>`; });
@@ -580,7 +578,7 @@ function stack(mode, lang) {
     y += h + 16;
   }
   const H = y + 56;
-  const head = `<rect width="${W}" height="${H}" fill="url(#g1)"/>
+  const head = `${t.flat ? `<rect width="${W}" height="${H}" rx="${FR}" fill="${t.bg}"/>` : ''}<rect width="${W}" height="${H}" fill="url(#g1)"/>
 ${T(W / 2, 54, l.stackSub, { size: 18, anchor: 'middle', fill: t.muted, max: W - 2 * CX })}`;
   const foot = T(W / 2, H - 26, l.stackRodape, { size: LBL, anchor: 'middle', fill: t.muted, max: W - 2 * CX });
   return svg(W, H, t, l.titulos.stack, glow('g1', t.a1, t.glowA, 640, -40, 720, 320), head + body + foot);
