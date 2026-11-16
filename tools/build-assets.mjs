@@ -478,7 +478,8 @@ function designCard(mode, lang) {
   const ry = py + ph + 60, rowH = 104, cols = 3, rows = Math.ceil(c.regras.length / cols);
   const fy = ry + 24 + rows * rowH + 40, H = fy + 38 + FX;
   const defs = `${glow('g1', t.a1, t.glowA, 160, H, 560, 320)}${glow('g2', t.a2, r1(t.glowA * 4) / 10, 1120, 0, 520, 240)}
-<linearGradient id="ruim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A78BFA" stop-opacity=".75"/><stop offset="1" stop-color="#E0825F" stop-opacity=".75"/></linearGradient>`;
+<linearGradient id="ruim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.ink}" stop-opacity=".05"/><stop offset="1" stop-color="${t.ink}" stop-opacity=".32"/></linearGradient>
+<pattern id="pontos" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="1.1" fill="${t.ink}" fill-opacity=".22"/></pattern>`;
   const css = `${caretCss}
 .mk{animation:mk 5s cubic-bezier(.6,0,.3,1) infinite;transform-box:fill-box;transform-origin:left}@keyframes mk{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.82)}}`;
   const mh = ph - 60 - 28 - 34;
@@ -497,13 +498,13 @@ function designCard(mode, lang) {
       [[0.42, 0.55], [0.6, 0.3], [0.34, 0.3]].forEach(([f, op], k) => { o += `<rect x="${mx + 38}" y="${sy + 16 + k * 16}" width="${r1((mw - 76) * f)}" height="6" rx="3" fill="#F5F2EF" fill-opacity="${op}"/>`; });
       o += T(mx + 22, my + mh - 14, c.painel.selo, { size: LBL, mono: true, fill: t.muted });
     } else {
-      // fundo em gradiente com pontos, grade de cards iguais com emoji
-      o += `<rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="url(#ruim)"/><rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="url(#dots)"/>`;
+      // fundo em gradiente com pontos, grade de cards iguais com emoji (só com as cores da paleta)
+      o += `<rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="url(#ruim)"/><rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="url(#pontos)"/>`;
       const cw = (mw - 32 - 24) / 3, chh = (mh - 32 - 12) / 2;
       for (let k = 0; k < 6; k++) {
         const cx = mx + 16 + (k % 3) * (cw + 12), cy = my + 16 + Math.floor(k / 3) * (chh + 12);
         o += `<rect x="${r1(cx)}" y="${r1(cy)}" width="${r1(cw)}" height="${r1(chh)}" rx="8" fill="#FFFFFF" fill-opacity=".42" stroke="#FFFFFF" stroke-opacity=".6"/>`;
-        o += `<circle cx="${r1(cx + 20)}" cy="${r1(cy + 20)}" r="8" fill="#FFC83D"/><circle cx="${r1(cx + 17.5)}" cy="${r1(cy + 18.5)}" r="1.2" fill="#5A3A00"/><circle cx="${r1(cx + 22.5)}" cy="${r1(cy + 18.5)}" r="1.2" fill="#5A3A00"/>`;
+        o += `<circle cx="${r1(cx + 20)}" cy="${r1(cy + 20)}" r="8" fill="${t.hl}"/><circle cx="${r1(cx + 17.5)}" cy="${r1(cy + 18.5)}" r="1.2" fill="#5A3A00"/><circle cx="${r1(cx + 22.5)}" cy="${r1(cy + 18.5)}" r="1.2" fill="#5A3A00"/>`;
         o += `<rect x="${r1(cx + 12)}" y="${r1(cy + chh - 24)}" width="${r1(cw * 0.6)}" height="5" rx="2.5" fill="#FFFFFF" fill-opacity=".8"/><rect x="${r1(cx + 12)}" y="${r1(cy + chh - 14)}" width="${r1(cw * 0.4)}" height="5" rx="2.5" fill="#FFFFFF" fill-opacity=".55"/>`;
       }
     }
