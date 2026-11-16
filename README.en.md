@@ -18,7 +18,39 @@ A skill is a folder with a `SKILL.md`: instructions, references and scripts that
 
 It is for people who work with **Claude Code**, **Codex** or **Antigravity** and want the agent to deliver finished work, not drafts. Install only what solves your problem.
 
-<!-- TODO: presentation video made with muri-video itself. Upload the MP4 through GitHub's web editor and paste the github.com/user-attachments/assets/<uuid> URL here, followed by an "open the video" link in <sub>. -->
+https://github.com/user-attachments/assets/55dd9c05-ae6c-4bb2-bb28-1ceb2cdea539
+
+<sub><b>Turn the sound on:</b> the video is narrated in Portuguese and GitHub's player starts muted. If it doesn't load, <a href="https://github.com/user-attachments/assets/55dd9c05-ae6c-4bb2-bb28-1ceb2cdea539">open the video</a>. Made with muri-video itself, in 58 s; real agent screens on a fictional project.</sub>
+
+<details>
+<summary>English transcript</summary>
+
+Coding agents write fast. But they deliver half the job: the draft looks finished, and the polish is left to you.
+
+muri-skills changes that. They're skills, instructions the agent loads by itself, so it works with a process from request to delivery.
+
+Ask for a video, and muri-video runs it like a production studio: brief, script, visual direction, scenes and render. At every stage it stops and waits for your ok. This video was made that way.
+
+In a long session, muri-saver cuts the waste: the agent doesn't re-read what it already read, suggests a new session when the subject changes, and doesn't skip a single test to save.
+
+For everything else, a curated stack by other authors, with credit and license for each one. Install only what solves your problem.
+
+Works in Claude Code, Codex and Antigravity. One line to install. Free and open source.
+
+</details>
+
+<table>
+  <tr>
+    <td width="33%"><img src="assets/video/problema.jpg" alt="Title: They deliver half the job. Looks finished."><br><sub><b>The problem:</b> the draft looks finished</sub></td>
+    <td width="33%"><img src="assets/video/processo.jpg" alt="Title: Instructions the agent loads by itself, next to Claude Code loading the skill"><br><sub><b>The idea:</b> instructions the agent loads by itself</sub></td>
+    <td width="33%"><img src="assets/video/muri-video.jpg" alt="This video's real render output next to the checklist brief, script, visual direction, scenes and render"><br><sub><b>muri-video:</b> stops at every stage for your ok</sub></td>
+  </tr>
+  <tr>
+    <td><img src="assets/video/muri-saver.jpg" alt="Claude Code loading the muri-saver skill; title Cut the waste"><br><sub><b>muri-saver:</b> no re-reading, one session per subject</sub></td>
+    <td><img src="assets/video/stack.jpg" alt="Curated stack by category, with each skill's author and license"><br><sub><b>Stack:</b> credit and license for every author</sub></td>
+    <td><img src="assets/video/instalar.jpg" alt="muri-skills brand with the command npx skills add murilolol/muri-skills"><br><sub><b>Install:</b> one line</sub></td>
+  </tr>
+</table>
 
 ## 01 · muri-video
 
