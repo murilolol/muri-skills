@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/hero-dark.svg">
-  <img src="assets/readme/hero-light.svg" width="100%" alt="muri-skills: skills que ensinam agentes de código a entregar trabalho pronto. Uma paleta de comandos mostra /muri-video sendo chamada com o pedido “vídeo de lançamento do app”.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/hero-dark.svg?v=2">
+  <img src="assets/readme/hero-light.svg?v=2" width="100%" alt="muri-skills: skills que ensinam agentes de código a entregar trabalho pronto. Uma paleta de comandos mostra /muri-video sendo chamada com o pedido “vídeo de lançamento do app”.">
 </picture>
 
 <p align="center">
@@ -56,8 +56,8 @@ Funciona no Claude Code, no Codex e no Antigravity. Uma linha para instalar. Gr�
 ## 01 · muri-video
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-video-dark.svg">
-  <img src="assets/readme/card-muri-video-light.svg" width="100%" alt="muri-video. Quando usar: institucional, lançamento de produto, resultados e dados, portfólio, vídeo para redes. Etapas: briefing, roteiro e voz, direção visual, cenas, som e render; todas, menos o som, param para aprovação. Entrega: 4 MP4 em 16:9 e 9:16, com e sem trilha, até 4K, legenda VTT; story e feed e revisão final por subagente quando pedidos.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-video-dark.svg?v=2">
+  <img src="assets/readme/card-muri-video-light.svg?v=2" width="100%" alt="muri-video. Quando usar: institucional, lançamento de produto, resultados e dados, portfólio, vídeo para redes. Etapas: briefing, roteiro e voz, direção visual, cenas, som e render; todas, menos o som, param para aprovação. Entrega: 4 MP4 em 16:9 e 9:16, com e sem trilha, até 4K, legenda VTT; story e feed e revisão final por subagente quando pedidos.">
 </picture>
 
 <!-- gerado:muri-video -->
@@ -108,8 +108,8 @@ Cada ✋ é um ponto em que a skill para e espera o seu ok.
 ## 02 · muri-saver
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-saver-dark.svg">
-  <img src="assets/readme/card-muri-saver-light.svg" width="100%" alt="muri-saver. Um medidor de contexto mostra a sessão no trecho enxuto com a skill, e inchando sem ela. Com o kit completo, um diagrama mostra você pedindo e aprovando, seu agente planejando e revisando, o Gemini com varredura e resumo e o Codex com revisão e código. Regras: uma sessão por assunto, nada de reler, texto antes de imagem, chamadas em lote, respostas diretas e qualidade não se negocia.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-saver-dark.svg?v=2">
+  <img src="assets/readme/card-muri-saver-light.svg?v=2" width="100%" alt="muri-saver. Um medidor de contexto mostra a sessão no trecho enxuto com a skill, e inchando sem ela. Com o kit completo, um diagrama mostra você pedindo e aprovando, seu agente planejando e revisando, o Gemini com varredura e resumo e o Codex com revisão e código. Regras: uma sessão por assunto, nada de reler, texto antes de imagem, chamadas em lote, respostas diretas e qualidade não se negocia.">
 </picture>
 
 <!-- gerado:muri-saver -->
@@ -154,8 +154,8 @@ Liga com `muri saver` e vale até você dizer `sair do muri-saver` ou pedir para
 ## 03 · muri-design
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-design-dark.svg">
-  <img src="assets/readme/card-muri-design-light.svg" width="100%" alt="muri-design. Dois painéis: o reprovado tem fundo em gradiente com pontos e uma grade de cards iguais com emoji; o aprovado tem base lisa, título com uma faixa de acento e uma tela real com o selo tela real, dados fictícios. Regras: cara do produto primeiro, um acento só, tela real, sem efeito decorativo, um layout por tela e motion com motivo. Processo: contexto, briefing, 3 opções, piloto, QA e revisão.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-design-dark.svg?v=2">
+  <img src="assets/readme/card-muri-design-light.svg?v=2" width="100%" alt="muri-design. Dois painéis: o reprovado tem fundo em gradiente com pontos e uma grade de cards iguais com emoji; o aprovado tem base lisa, título com uma faixa de acento e uma tela real com o selo tela real, dados fictícios. Regras: cara do produto primeiro, um acento só, tela real, sem efeito decorativo, um layout por tela e motion com motivo. Processo: contexto, briefing, 3 opções, piloto, QA e revisão.">
 </picture>
 
 <!-- gerado:muri-design -->
@@ -175,8 +175,8 @@ As regras completas, o processo e o checklist de reprovação estão no [`SKILL.
 ## 04 · Stack curada
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack-dark.svg">
-  <img src="assets/readme/stack-light.svg" width="100%" alt="Stack curada, agrupada pelo que resolve: Design & UI (impeccable, frontend-design, prototype, animate, emil-design-eng, design-taste-frontend), Planejamento (grill-me, graphify), Engenharia (tdd, test-driven-development), Automação (find-skills, agent-browser) e Vídeo (video-shotcraft, remotion-best-practices).">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack-dark.svg?v=2">
+  <img src="assets/readme/stack-light.svg?v=2" width="100%" alt="Stack curada, agrupada pelo que resolve: Design & UI (impeccable, frontend-design, prototype, animate, emil-design-eng, design-taste-frontend), Planejamento (grill-me, graphify), Engenharia (tdd, test-driven-development), Automação (find-skills, agent-browser) e Vídeo (video-shotcraft, remotion-best-practices).">
 </picture>
 
 Skills de outros autores que trabalham junto com as minhas. Nenhum código delas é copiado para cá: cada uma mantém a licença original e é instalada pelo comando do autor.

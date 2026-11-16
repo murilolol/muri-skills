@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/hero-dark.en.svg">
-  <img src="assets/readme/hero-light.en.svg" width="100%" alt="muri-skills: skills that teach coding agents to ship finished work. A command palette shows /muri-video being called with the request “launch video for the app”.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/hero-dark.en.svg?v=2">
+  <img src="assets/readme/hero-light.en.svg?v=2" width="100%" alt="muri-skills: skills that teach coding agents to ship finished work. A command palette shows /muri-video being called with the request “launch video for the app”.">
 </picture>
 
 <p align="center">
@@ -56,8 +56,8 @@ Works in Claude Code, Codex and Antigravity. One line to install. Free and open 
 ## 01 · muri-video
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-video-dark.en.svg">
-  <img src="assets/readme/card-muri-video-light.en.svg" width="100%" alt="muri-video. When to use: company profile, product launch, results and data, portfolio, social video. Stages: brief, script and voice, visual direction, scenes, sound and render; all but sound stop for approval. You get: 4 MP4s in 16:9 and 9:16, with and without music, up to 4K, VTT captions; story and feed cuts and a final subagent review when requested.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-video-dark.en.svg?v=2">
+  <img src="assets/readme/card-muri-video-light.en.svg?v=2" width="100%" alt="muri-video. When to use: company profile, product launch, results and data, portfolio, social video. Stages: brief, script and voice, visual direction, scenes, sound and render; all but sound stop for approval. You get: 4 MP4s in 16:9 and 9:16, with and without music, up to 4K, VTT captions; story and feed cuts and a final subagent review when requested.">
 </picture>
 
 <!-- gerado:muri-video -->
@@ -108,8 +108,8 @@ Each ✋ is a point where the skill stops and waits for your OK.
 ## 02 · muri-saver
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-saver-dark.en.svg">
-  <img src="assets/readme/card-muri-saver-light.en.svg" width="100%" alt="muri-saver. A context gauge shows the session in the lean zone with the skill, and bloating without it. With the full kit, a diagram shows you asking and approving, your agent planning and reviewing, Gemini on sweeps and summaries and Codex on review and code. Rules: one session per topic, no rereading, text before images, batched calls, direct answers and quality is never traded away.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-saver-dark.en.svg?v=2">
+  <img src="assets/readme/card-muri-saver-light.en.svg?v=2" width="100%" alt="muri-saver. A context gauge shows the session in the lean zone with the skill, and bloating without it. With the full kit, a diagram shows you asking and approving, your agent planning and reviewing, Gemini on sweeps and summaries and Codex on review and code. Rules: one session per topic, no rereading, text before images, batched calls, direct answers and quality is never traded away.">
 </picture>
 
 <!-- gerado:muri-saver -->
@@ -154,8 +154,8 @@ Turn it on with `muri saver`; it stays on until you say `sair do muri-saver` or 
 ## 03 · muri-design
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-design-dark.en.svg">
-  <img src="assets/readme/card-muri-design-light.en.svg" width="100%" alt="muri-design. Two panels: the rejected one has a dotted gradient background and a grid of identical cards with emoji; the approved one has a plain base, a title with one accent stripe and a real screen labeled real screen, fictional data. Rules: product look first, one accent, real screens, no decorative effects, one layout per screen and motion with a reason. Process: context, brief, 3 options, pilot, QA and review.">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-design-dark.en.svg?v=2">
+  <img src="assets/readme/card-muri-design-light.en.svg?v=2" width="100%" alt="muri-design. Two panels: the rejected one has a dotted gradient background and a grid of identical cards with emoji; the approved one has a plain base, a title with one accent stripe and a real screen labeled real screen, fictional data. Rules: product look first, one accent, real screens, no decorative effects, one layout per screen and motion with a reason. Process: context, brief, 3 options, pilot, QA and review.">
 </picture>
 
 <!-- gerado:muri-design -->
@@ -175,8 +175,8 @@ The full rules, the process and the rejection checklist are in [`SKILL.md`](skil
 ## 04 · Curated stack
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack-dark.en.svg">
-  <img src="assets/readme/stack-light.en.svg" width="100%" alt="Curated stack, grouped by what it solves: Design & UI (impeccable, frontend-design, prototype, animate, emil-design-eng, design-taste-frontend), Planning (grill-me, graphify), Engineering (tdd, test-driven-development), Automation (find-skills, agent-browser) and Video (video-shotcraft, remotion-best-practices).">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack-dark.en.svg?v=2">
+  <img src="assets/readme/stack-light.en.svg?v=2" width="100%" alt="Curated stack, grouped by what it solves: Design & UI (impeccable, frontend-design, prototype, animate, emil-design-eng, design-taste-frontend), Planning (grill-me, graphify), Engineering (tdd, test-driven-development), Automation (find-skills, agent-browser) and Video (video-shotcraft, remotion-best-practices).">
 </picture>
 
 Skills by other authors that work alongside mine. None of their code is copied here: each keeps its original license and is installed with the author's own command.
