@@ -105,6 +105,50 @@
           { "titulo": "Quality is never traded away", "texto": "A needed test is never skipped." }
         ]
       }
+    },
+    {
+      "nome": "muri-design",
+      "num": "03",
+      "pasta": "skills/muri-design",
+      "icone": "nib",
+      "instalar": "npx skills add murilolol/muri-skills --skill muri-design",
+      "ativar": "muri design",
+      "pt": {
+        "categoria": "Design de produto",
+        "resumo": "Minhas regras de design: a cara do produto, um acento, tela real e nada decorativo.",
+        "para_que_serve": "As regras que eu aplico quando desenho para um produto, tiradas do que eu aprovei e reprovei em projetos reais. O agente lê a identidade do produto antes de desenhar, usa uma base lisa com um acento só, mostra telas reais em vez de UI inventada, corta efeito decorativo e dá a cada tela um layout próprio. O processo vem junto: briefing curto, três opções lado a lado, piloto aprovado antes de escalar, QA em prancha e revisão independente.",
+        "quando_usar": "muri design",
+        "entrega": "Visual com a cara do produto e sem cara de template, um checklist de reprovação aplicado antes de te mostrar qualquer coisa e um ponto de aprovação antes de escalar. Para execução e polimento, combina com impeccable, emil-design-eng e frontend-design da stack.",
+        "chips_quando": ["interface ou site novo", "redesign", "carrossel e post", "README e visual de produto"],
+        "painel": { "ruim": "REPROVADO", "ruimTxt": "gradiente · grade de cards iguais · emoji", "bom": "APROVADO", "bomTxt": "base lisa · um acento · tela real", "selo": "tela real · dados fictícios" },
+        "processo": "contexto → briefing → 3 opções → piloto → QA → revisão",
+        "regras": [
+          { "icone": "eye", "titulo": "Cara do produto primeiro", "texto": "Paleta, fonte e logo do próprio produto." },
+          { "icone": "sparkle", "titulo": "Um acento só", "texto": "Base lisa e uma cor para ação ou destaque." },
+          { "icone": "browser", "titulo": "Tela real", "texto": "Captura do produto; dado fictício com selo." },
+          { "icone": "layers", "titulo": "Sem efeito decorativo", "texto": "Nada de gradiente, quadriculado ou glow." },
+          { "icone": "grid", "titulo": "Um layout por tela", "texto": "Nada de grade de cards iguais; tudo cabe." },
+          { "icone": "motion", "titulo": "Motion com motivo", "texto": "Cada movimento mostra uma consequência." }
+        ]
+      },
+      "en": {
+        "categoria": "Product design",
+        "resumo": "My design rules: the product's look, one accent, real screens, nothing decorative.",
+        "para_que_serve": "The rules I apply when I design for a product, taken from what I approved and rejected on real projects. The agent reads the product's identity before drawing, uses a plain base with a single accent, shows real screens instead of invented UI, cuts decorative effects and gives each screen its own layout. The process comes with it: a short brief, three options side by side, an approved pilot before scaling, QA on a contact sheet and an independent review.",
+        "quando_usar": "muri design",
+        "entrega": "Visuals that look like the product and not like a template, a rejection checklist applied before anything is shown to you, and an approval point before scaling. For execution and polish, it pairs with impeccable, emil-design-eng and frontend-design from the stack.",
+        "chips_quando": ["new interface or site", "redesign", "carousels and posts", "README and product visuals"],
+        "painel": { "ruim": "REJECTED", "ruimTxt": "gradient · grid of identical cards · emoji", "bom": "APPROVED", "bomTxt": "plain base · one accent · real screen", "selo": "real screen · fictional data" },
+        "processo": "context → brief → 3 options → pilot → QA → review",
+        "regras": [
+          { "titulo": "Product look first", "texto": "The product's own palette, fonts and logo." },
+          { "titulo": "One accent", "texto": "Plain base, one color for action or emphasis." },
+          { "titulo": "Real screens", "texto": "Capture the product; label fictional data." },
+          { "titulo": "No decorative effects", "texto": "No gradients, grids or glow." },
+          { "titulo": "One layout per screen", "texto": "No grid of identical cards; everything fits." },
+          { "titulo": "Motion with a reason", "texto": "Every move shows a consequence." }
+        ]
+      }
     }
   ],
   "grupos": [

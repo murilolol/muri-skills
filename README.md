@@ -10,11 +10,12 @@
 <p align="center">
   <a href="#01--muri-video">muri-video</a> &nbsp;·&nbsp;
   <a href="#02--muri-saver">muri-saver</a> &nbsp;·&nbsp;
-  <a href="#03--stack-curada">Stack curada</a> &nbsp;·&nbsp;
+  <a href="#03--muri-design">muri-design</a> &nbsp;·&nbsp;
+  <a href="#04--stack-curada">Stack curada</a> &nbsp;·&nbsp;
   <a href="#como-instalar">Como instalar</a>
 </p>
 
-Uma skill é uma pasta com um `SKILL.md`: instruções, referências e scripts que o agente de código carrega sozinho quando a tarefa pede. Este repositório reúne as duas skills que eu escrevi e a stack de terceiros que uso junto com elas, com crédito a cada autor.
+Uma skill é uma pasta com um `SKILL.md`: instruções, referências e scripts que o agente de código carrega sozinho quando a tarefa pede. Este repositório reúne as três skills que eu escrevi e a stack de terceiros que uso junto com elas, com crédito a cada autor.
 
 É para quem trabalha com **Claude Code**, **Codex** ou **Antigravity** e quer que o agente entregue trabalho com acabamento, não rascunho. Instale só o que resolve o seu problema.
 
@@ -150,7 +151,28 @@ Liga com `muri saver` e vale até você dizer `sair do muri-saver` ou pedir para
 
 </details>
 
-## 03 · Stack curada
+## 03 · muri-design
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-design-dark.svg">
+  <img src="assets/readme/card-muri-design-light.svg" width="100%" alt="muri-design. Dois painéis: o reprovado tem fundo em gradiente com pontos e uma grade de cards iguais com emoji; o aprovado tem base lisa, título com uma faixa de acento e uma tela real com o selo tela real, dados fictícios. Regras: cara do produto primeiro, um acento só, tela real, sem efeito decorativo, um layout por tela e motion com motivo. Processo: contexto, briefing, 3 opções, piloto, QA e revisão.">
+</picture>
+
+<!-- gerado:muri-design -->
+**Para que serve.** As regras que eu aplico quando desenho para um produto, tiradas do que eu aprovei e reprovei em projetos reais. O agente lê a identidade do produto antes de desenhar, usa uma base lisa com um acento só, mostra telas reais em vez de UI inventada, corta efeito decorativo e dá a cada tela um layout próprio. O processo vem junto: briefing curto, três opções lado a lado, piloto aprovado antes de escalar, QA em prancha e revisão independente.
+
+**Quando usar.** Interface ou site novo · redesign · carrossel e post · README e visual de produto. Peça assim: `muri design`
+
+**O que você recebe.** Visual com a cara do produto e sem cara de template, um checklist de reprovação aplicado antes de te mostrar qualquer coisa e um ponto de aprovação antes de escalar. Para execução e polimento, combina com impeccable, emil-design-eng e frontend-design da stack.
+
+```bash
+npx skills add murilolol/muri-skills --skill muri-design
+```
+<!-- /gerado:muri-design -->
+
+As regras completas, o processo e o checklist de reprovação estão no [`SKILL.md`](skills/muri-design/SKILL.md). Elas vêm de feedback real que eu dei em projetos, aprovando e reprovando trabalho; onde coincidem com skills da stack, o crédito está no fim do arquivo.
+
+## 04 · Stack curada
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack-dark.svg">
@@ -272,7 +294,7 @@ npx skills add remotion-dev/skills
 **Pelo CLI de skills** (detecta os agentes instalados na máquina):
 
 ```bash
-npx skills add murilolol/muri-skills                      # lista as duas e pergunta
+npx skills add murilolol/muri-skills                      # lista as três e pergunta
 npx skills add murilolol/muri-skills --skill muri-video   # só uma
 ```
 
@@ -288,7 +310,7 @@ Para usar o CLI da muri-video como `muri`: `ln -s "$PWD/muri-skills/skills/muri-
 
 ## Licença e créditos
 
-As skills autorais (`skills/muri-saver` e `skills/muri-video`) e os scripts deste repositório estão sob a licença MIT ([`LICENSE`](LICENSE)). As skills da stack não são distribuídas aqui e seguem a licença de cada autor, indicada acima. O motor [HyperFrames](https://github.com/heygen-com/hyperframes), que a muri-video ativa por projeto, é da [HeyGen](https://github.com/heygen-com) (Apache-2.0).
+As skills autorais (`skills/muri-design`, `skills/muri-saver` e `skills/muri-video`) e os scripts deste repositório estão sob a licença MIT ([`LICENSE`](LICENSE)). As skills da stack não são distribuídas aqui e seguem a licença de cada autor, indicada acima. O motor [HyperFrames](https://github.com/heygen-com/hyperframes), que a muri-video ativa por projeto, é da [HeyGen](https://github.com/heygen-com) (Apache-2.0).
 
 Feito por [Murilo Silva](https://github.com/murilolol).
 

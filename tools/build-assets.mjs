@@ -154,13 +154,13 @@ const L = {
   pt: {
     kicker: 'Agent Skills · portfólio aberto',
     lema: ['Skills que ensinam agentes de código', 'a entregar ', 'trabalho pronto', '.'],
-    indice: [['01', 'muri-video', 'vídeo narrado, do briefing ao MP4'], ['02', 'muri-saver', 'sessões curtas, contexto enxuto'], ['03', 'stack', 'skills de terceiros, com crédito']],
+    indice: [['01', 'muri-video', 'vídeo narrado, do briefing ao MP4'], ['02', 'muri-saver', 'sessões curtas, contexto enxuto'], ['03', 'muri-design', 'cara do produto, nada decorativo'], ['04', 'stack', 'skills de terceiros, com crédito']],
     funciona: 'funciona em',
     busca: 'vídeo de lançamento do app',
-    paleta: [['film', 'muri-video', 'vídeo narrado, do briefing ao MP4'], ['gauge', 'muri-saver', 'sessões curtas, contexto enxuto'], ['sparkle', 'impeccable', 'crítica e polimento de interface'], ['ask', 'grill-me', 'perguntas até o plano fechar'], ['cycle', 'tdd', 'red-green-refactor, um teste por vez']],
+    paleta: [['film', 'muri-video', 'vídeo narrado, do briefing ao MP4'], ['gauge', 'muri-saver', 'sessões curtas, contexto enxuto'], ['nib', 'muri-design', 'regras de design, sem template'], ['sparkle', 'impeccable', 'crítica e polimento de interface'], ['ask', 'grill-me', 'perguntas até o plano fechar']],
     rodapePaleta: ['skills', '↑↓ navegar   ↵ carregar'],
     autoral: 'autoral', comoChamar: 'COMO CHAMAR', quando: 'QUANDO USAR', entrega: 'ENTREGA', etapas: 'DO BRIEFING À ENTREGA',
-    aprova: 'para e espera sua aprovação', orquestra: 'ORQUESTRA', motor: 'MOTOR', ativar: 'ATIVAR', desativar: 'DESATIVAR', kit: 'KIT COMPLETO',
+    aprova: 'para e espera sua aprovação', orquestra: 'ORQUESTRA', motor: 'MOTOR', ativar: 'ATIVAR', desativar: 'DESATIVAR', kit: 'KIT COMPLETO', processo: 'PROCESSO',
     regras: 'O QUE MUDA NO AGENTE', stackSub: 'Agrupadas pelo que resolvem. Instale cada uma direto da fonte, pelo comando do autor.',
     stackRodape: 'Código de terceiros não é copiado para este repositório. Crédito, licença e instalação de cada skill estão no README.',
     titulos: { hero: 'muri-skills: skills que ensinam agentes de código a entregar trabalho pronto', stack: 'Stack curada: skills de terceiros agrupadas pelo que resolvem' },
@@ -168,13 +168,13 @@ const L = {
   en: {
     kicker: 'Agent Skills · open portfolio',
     lema: ['Skills that teach coding agents', 'to ship ', 'finished work', '.'],
-    indice: [['01', 'muri-video', 'narrated video, from brief to MP4'], ['02', 'muri-saver', 'short sessions, lean context'], ['03', 'stack', 'third-party skills, credited']],
+    indice: [['01', 'muri-video', 'narrated video, from brief to MP4'], ['02', 'muri-saver', 'short sessions, lean context'], ['03', 'muri-design', "the product's look, nothing decorative"], ['04', 'stack', 'third-party skills, credited']],
     funciona: 'works in',
     busca: 'launch video for the app',
-    paleta: [['film', 'muri-video', 'narrated video, from brief to MP4'], ['gauge', 'muri-saver', 'short sessions, lean context'], ['sparkle', 'impeccable', 'interface critique and polish'], ['ask', 'grill-me', 'questions until the plan is closed'], ['cycle', 'tdd', 'red-green-refactor, one test at a time']],
+    paleta: [['film', 'muri-video', 'narrated video, from brief to MP4'], ['gauge', 'muri-saver', 'short sessions, lean context'], ['nib', 'muri-design', 'design rules, no templates'], ['sparkle', 'impeccable', 'interface critique and polish'], ['ask', 'grill-me', 'questions until the plan is closed']],
     rodapePaleta: ['skills', '↑↓ navigate   ↵ load'],
     autoral: 'original', comoChamar: 'HOW TO CALL IT', quando: 'WHEN TO USE', entrega: 'YOU GET', etapas: 'FROM BRIEF TO DELIVERY',
-    aprova: 'stops for your approval', orquestra: 'ORCHESTRATES', motor: 'ENGINE', ativar: 'TURN ON', desativar: 'TURN OFF', kit: 'FULL KIT',
+    aprova: 'stops for your approval', orquestra: 'ORCHESTRATES', motor: 'ENGINE', ativar: 'TURN ON', desativar: 'TURN OFF', kit: 'FULL KIT', processo: 'PROCESS',
     regras: 'WHAT CHANGES IN THE AGENT', stackSub: 'Grouped by what they solve. Install each one from the source, with the author\'s command.',
     stackRodape: 'No third-party code is copied into this repository. Credit, license and install for each skill are in the README.',
     titulos: { hero: 'muri-skills: skills that teach coding agents to ship finished work', stack: 'Curated stack: third-party skills grouped by what they solve' },
@@ -214,13 +214,14 @@ function hero(mode, lang) {
   if (tw(b + em + c, 26, 500) > lmax - lx) throw new Error('lema largo demais');
   left += `<text x="${lx}" y="300" font-size="26" letter-spacing="-.3" fill="${t.soft}">${esc(b)}<tspan fill="${t.text}" font-weight="600">${esc(em)}</tspan>${esc(c)}</text>`;
   l.indice.forEach(([n, nome, desc], i) => {
-    const y = 366 + i * 44;
+    const y = 366 + i * 36;
     left += hr(lx, lmax, y - 28, t);
     left += T(lx, y, n, { size: LBL, mono: true, fill: t.a2t, w: 500 });
     left += T(lx + 40, y, nome, { size: 19, w: 600, fill: t.text });
     left += T(lx + 168, y, desc, { size: 17, fill: t.muted, max: lmax - lx - 168 });
   });
-  left += hr(lx, lmax, 366 + 3 * 44 - 28, t);
+  left += hr(lx, lmax, 366 + l.indice.length * 36 - 28, t);
+  if (366 + l.indice.length * 36 - 28 > py + ph - 26 - 12) throw new Error('índice encosta nos hosts');
   let hx = lx + tw(l.funciona, LBL, 400, true) + 14;
   left += T(lx, py + ph - 5, l.funciona, { size: LBL, mono: true, fill: t.faint });
   dados.hosts.forEach(h => { const p = pill(hx, py + ph - 26, h, t, { size: LBL, h: 32 }); left += p.svg; hx += p.w + 8; });
@@ -470,6 +471,72 @@ ${g}${dg}${rg}${ft}`;
   return svg(W, H, t, `${s.nome}: ${c.resumo}`, defs, body, css);
 }
 
+// ---------- 3b. muri-design ----------
+// dois painéis (reprovado × aprovado) desenhados com as próprias regras, as 6 regras e o processo no rodapé
+function designCard(mode, lang) {
+  const t = TEMAS[mode], l = L[lang], s = dados.autorais.find(a => a.nome === 'muri-design'), c = s[lang], pt = s.pt;
+  const head = cabecalho(s, c, t, l, s.ativar);
+  const py = head.y + 36, ph = 300, gap = 24, pw = (CR - CX - gap) / 2;
+  const ry = py + ph + 60, rowH = 104, cols = 3, rows = Math.ceil(c.regras.length / cols);
+  const fy = ry + 24 + rows * rowH + 40, H = fy + 38 + FX;
+  const defs = `${glow('g1', t.a1, t.glowA, 160, H, 560, 320)}${glow('g2', t.a2, r1(t.glowA * 4) / 10, 1120, 0, 520, 240)}
+<linearGradient id="ruim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${t.a1}" stop-opacity=".55"/><stop offset="1" stop-color="${t.a2}" stop-opacity=".55"/></linearGradient>`;
+  const css = `${caretCss}
+.mk{animation:mk 5s cubic-bezier(.6,0,.3,1) infinite;transform-box:fill-box;transform-origin:left}@keyframes mk{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.82)}}`;
+  const mh = ph - 60 - 28 - 34;
+  const painel = (x, bom) => {
+    const mx = x + 28, my = py + 60, mw = pw - 56;
+    let o = card(x, py, pw, ph, PR) + label(mx, py + 40, bom ? c.painel.bom : c.painel.ruim, t);
+    if (bom) o += check(x + pw - 36, py + 35, t);
+    else o += `<circle cx="${r1(x + pw - 36)}" cy="${py + 35}" r="9" fill="none" stroke="${t.a2t}" stroke-width="1.6"/><path d="M${r1(x + pw - 40)} ${py + 31}l8 8m0-8l-8 8" stroke="${t.a2t}" stroke-width="1.6" stroke-linecap="round"/>`;
+    if (bom) {
+      // base lisa, título com uma faixa de acento, tela real escura com selo
+      o += `<rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="${t.screen}" stroke="${t.line}" stroke-opacity="${r1(t.lineA * 12) / 10}"/>`;
+      o += `<rect x="${mx + 22}" y="${my + 22}" width="${r1(mw * 0.5)}" height="14" rx="3" fill="${t.ink}" fill-opacity=".78"/>`;
+      o += `<rect class="mk" x="${mx + 22}" y="${my + 44}" width="${r1(mw * 0.36)}" height="14" rx="3" fill="${t.a2}"/>`;
+      const sy = my + 74, sh = mh - 74 - 38;
+      o += `<rect x="${mx + 22}" y="${sy}" width="${mw - 44}" height="${sh}" rx="8" fill="${t.shadow ? '#16131A' : '#08070A'}" stroke="${t.line}" stroke-opacity="${t.shadow ? 0 : 0.18}"/>`;
+      [[0.42, 0.55], [0.6, 0.3], [0.34, 0.3]].forEach(([f, op], k) => { o += `<rect x="${mx + 38}" y="${sy + 16 + k * 16}" width="${r1((mw - 76) * f)}" height="6" rx="3" fill="#F5F2EF" fill-opacity="${op}"/>`; });
+      o += T(mx + 22, my + mh - 14, c.painel.selo, { size: LBL, mono: true, fill: t.muted });
+    } else {
+      // fundo em gradiente com pontos, grade de cards iguais com emoji
+      o += `<rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="url(#ruim)"/><rect x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="12" fill="url(#dots)"/>`;
+      const cw = (mw - 32 - 24) / 3, chh = (mh - 32 - 12) / 2;
+      for (let k = 0; k < 6; k++) {
+        const cx = mx + 16 + (k % 3) * (cw + 12), cy = my + 16 + Math.floor(k / 3) * (chh + 12);
+        o += `<rect x="${r1(cx)}" y="${r1(cy)}" width="${r1(cw)}" height="${r1(chh)}" rx="8" fill="#FFFFFF" fill-opacity=".42" stroke="#FFFFFF" stroke-opacity=".6"/>`;
+        o += `<circle cx="${r1(cx + 20)}" cy="${r1(cy + 20)}" r="8" fill="#FFC83D"/><circle cx="${r1(cx + 17.5)}" cy="${r1(cy + 18.5)}" r="1.2" fill="#5A3A00"/><circle cx="${r1(cx + 22.5)}" cy="${r1(cy + 18.5)}" r="1.2" fill="#5A3A00"/>`;
+        o += `<rect x="${r1(cx + 12)}" y="${r1(cy + chh - 24)}" width="${r1(cw * 0.6)}" height="5" rx="2.5" fill="#FFFFFF" fill-opacity=".8"/><rect x="${r1(cx + 12)}" y="${r1(cy + chh - 14)}" width="${r1(cw * 0.4)}" height="5" rx="2.5" fill="#FFFFFF" fill-opacity=".55"/>`;
+      }
+    }
+    o += T(mx, py + ph - 24, bom ? c.painel.bomTxt : c.painel.ruimTxt, { size: 16.5, fill: bom ? t.text : t.muted, w: bom ? 500 : 400, max: mw });
+    return o;
+  };
+
+  const cw = (CR - CX - 32) / cols;
+  let rg = label(CX, ry, l.regras, t);
+  c.regras.forEach((r, i) => {
+    const x = CX + (i % cols) * (cw + 16), y = ry + 24 + Math.floor(i / cols) * rowH;
+    rg += tile(pt.regras[i].icone, x, y + 2, 44, t, i === 0);
+    rg += T(x + 60, y + 22, r.titulo, { size: 19, w: 600, fill: t.text, ls: -0.3, max: cw - 64 });
+    const ls = wrap(r.texto, 16.5, cw - 64);
+    assert.ok(ls.length <= 2, `regra longa demais: ${r.texto}`);
+    ls.forEach((ln, k) => { rg += T(x + 60, y + 48 + k * 23, ln, { size: 16.5, fill: t.muted }); });
+  });
+
+  let ft = hr(CX, CR, fy - 40, t);
+  const vx = CX + lw(l.processo) + 14;
+  ft += label(CX, fy, l.processo, t) + T(vx, fy, c.processo, { size: 17, mono: true, fill: t.soft });
+  const ax = CR - tw(s.ativar, 17, 500, true);
+  ft += T(ax, fy, s.ativar, { size: 17, mono: true, fill: t.text, w: 500 }) + label(ax - 14, fy, l.ativar, t, { anchor: 'end' });
+  if (vx + tw(c.processo, 17, 400, true) + 32 > ax - 14 - lw(l.ativar)) throw new Error('rodapé do muri-design estoura');
+  const body = `<rect width="${W}" height="${H}" fill="url(#g1)"/><rect width="${W}" height="${H}" fill="url(#g2)"/>
+${card(FX, FX, W - 2 * FX, H - 2 * FX, FR)}
+${head.svg}
+${painel(CX, false)}${painel(CX + pw + gap, true)}${rg}${ft}`;
+  return svg(W, H, t, `${s.nome}: ${c.resumo}`, defs, body, css);
+}
+
 // ---------- 4. stack ----------
 // O título fica no H2 do README; a imagem abre direto no subtítulo.
 function stack(mode, lang) {
@@ -564,6 +631,7 @@ for (const lang of ['pt', 'en']) for (const mode of ['dark', 'light']) {
   arquivos[`hero${suf}`] = hero(mode, lang);
   arquivos[`card-muri-video${suf}`] = videoCard(mode, lang);
   arquivos[`card-muri-saver${suf}`] = saverCard(mode, lang);
+  arquivos[`card-muri-design${suf}`] = designCard(mode, lang);
   arquivos[`stack${suf}`] = stack(mode, lang);
 }
 // apaga SVGs antigos que não são mais gerados

@@ -10,11 +10,12 @@
 <p align="center">
   <a href="#01--muri-video">muri-video</a> &nbsp;·&nbsp;
   <a href="#02--muri-saver">muri-saver</a> &nbsp;·&nbsp;
-  <a href="#03--curated-stack">Curated stack</a> &nbsp;·&nbsp;
+  <a href="#03--muri-design">muri-design</a> &nbsp;·&nbsp;
+  <a href="#04--curated-stack">Curated stack</a> &nbsp;·&nbsp;
   <a href="#install">Install</a>
 </p>
 
-A skill is a folder with a `SKILL.md`: instructions, references and scripts that a coding agent loads by itself when the task calls for it. This repository holds the two skills I wrote and the third-party stack I use alongside them, with credit to every author.
+A skill is a folder with a `SKILL.md`: instructions, references and scripts that a coding agent loads by itself when the task calls for it. This repository holds the three skills I wrote and the third-party stack I use alongside them, with credit to every author.
 
 It is for people who work with **Claude Code**, **Codex** or **Antigravity** and want the agent to deliver finished work, not drafts. Install only what solves your problem.
 
@@ -150,7 +151,28 @@ Turn it on with `muri saver`; it stays on until you say `sair do muri-saver` or 
 
 </details>
 
-## 03 · Curated stack
+## 03 · muri-design
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/readme/card-muri-design-dark.en.svg">
+  <img src="assets/readme/card-muri-design-light.en.svg" width="100%" alt="muri-design. Two panels: the rejected one has a dotted gradient background and a grid of identical cards with emoji; the approved one has a plain base, a title with one accent stripe and a real screen labeled real screen, fictional data. Rules: product look first, one accent, real screens, no decorative effects, one layout per screen and motion with a reason. Process: context, brief, 3 options, pilot, QA and review.">
+</picture>
+
+<!-- gerado:muri-design -->
+**What it is for.** The rules I apply when I design for a product, taken from what I approved and rejected on real projects. The agent reads the product's identity before drawing, uses a plain base with a single accent, shows real screens instead of invented UI, cuts decorative effects and gives each screen its own layout. The process comes with it: a short brief, three options side by side, an approved pilot before scaling, QA on a contact sheet and an independent review.
+
+**When to use it.** New interface or site · redesign · carousels and posts · README and product visuals. Ask like this: `muri design`
+
+**What you get.** Visuals that look like the product and not like a template, a rejection checklist applied before anything is shown to you, and an approval point before scaling. For execution and polish, it pairs with impeccable, emil-design-eng and frontend-design from the stack.
+
+```bash
+npx skills add murilolol/muri-skills --skill muri-design
+```
+<!-- /gerado:muri-design -->
+
+The full rules, the process and the rejection checklist are in [`SKILL.md`](skills/muri-design/SKILL.md). They come from real feedback I gave on projects, approving and rejecting work; where they overlap with stack skills, the credit is at the end of the file.
+
+## 04 · Curated stack
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack-dark.en.svg">
@@ -272,7 +294,7 @@ npx skills add remotion-dev/skills
 **With the skills CLI** (it detects the agents installed on your machine):
 
 ```bash
-npx skills add murilolol/muri-skills                      # lists both and asks
+npx skills add murilolol/muri-skills                      # lists all three and asks
 npx skills add murilolol/muri-skills --skill muri-video   # just one
 ```
 
@@ -288,7 +310,7 @@ To use the muri-video CLI as `muri`: `ln -s "$PWD/muri-skills/skills/muri-video/
 
 ## License and credits
 
-The original skills (`skills/muri-saver` and `skills/muri-video`) and the scripts in this repository are MIT-licensed ([`LICENSE`](LICENSE)). The stack skills are not distributed here and keep each author's license, listed above. The [HyperFrames](https://github.com/heygen-com/hyperframes) engine, which muri-video enables per project, belongs to [HeyGen](https://github.com/heygen-com) (Apache-2.0).
+The original skills (`skills/muri-design`, `skills/muri-saver` and `skills/muri-video`) and the scripts in this repository are MIT-licensed ([`LICENSE`](LICENSE)). The stack skills are not distributed here and keep each author's license, listed above. The [HyperFrames](https://github.com/heygen-com/hyperframes) engine, which muri-video enables per project, belongs to [HeyGen](https://github.com/heygen-com) (Apache-2.0).
 
 Made by [Murilo Silva](https://github.com/murilolol).
 
