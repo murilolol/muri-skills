@@ -71,16 +71,16 @@ function cenas() {
   const plano = json('src/plano.json');
   const dur = json('src/narracao.json');
   const ids = Object.keys(json('src/roteiro.json').cenas);
-  const T = plano.transicao;
+  const T = plano.transicao; // tudo neste bloco em quadros de 30 (src/kit/tempo.ts do template), em qualquer fps
   const frames = ids.map((id) => {
     const r = plano.cenas[id];
     const voz = dur[id]?.segundos ?? Math.max(2, json('src/roteiro.json').cenas[id].split(/\s+/).length / 2.6); // sem voz gravada: estimativa do template
-    return Math.round((r.entrada + voz + r.saida) * plano.fps);
+    return Math.round((r.entrada + voz + r.saida) * 30);
   });
   let inicio = 0;
   return ids.map((id, i) => {
     const s = inicio; inicio += frames[i] - T;
-    return [id, s / fps, (s + frames[i] - (i < ids.length - 1 ? T : 0) - 1) / fps];
+    return [id, s / 30, (s + frames[i] - (i < ids.length - 1 ? T : 0) - 1) / 30];
   });
 }
 

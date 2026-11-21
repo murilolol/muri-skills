@@ -24,11 +24,25 @@ Esta skill **orquestra** outras — carregue cada uma quando a etapa chegar, nã
 | HyperFrames (`npx hyperframes`) | motor alternativo em HTML/GSAP — ver `references/hyperframes.md` |
 | FigCraft (`figcraft-cli`) | styleframes e tokens editáveis (opcional) — ver `references/figcraft.md` |
 
+## Instalação e primeiro uso (qualquer agente: Claude Code, Codex, Gemini CLI, Antigravity)
+
+Quando a pessoa pedir para instalar a skill (ex.: "instala github.com/murilolol/muri-skills") ou no primeiro vídeo:
+1. Rode `muri doctor` (ou `node <pasta-da-skill>/cli/muri.mjs doctor`) e
+   `node <pasta-da-skill>/scripts/figcraft.mjs detectar` — mostra app, `figcraft-cli` e em quais agentes o MCP já está.
+2. Pergunte numa rodada do `AskUserQuestion` (nunca decida sozinho): instalar o FigCraft (CLI; opcional) · em qual
+   agente registrar o MCP (o que está em uso primeiro; pode marcar vários) · escopo (usuário = todos os projetos ·
+   projeto = só esta pasta) · qual pasta o FigCraft pode ler/gravar (padrão: a pasta dos vídeos).
+3. Rode o que foi escolhido: `figcraft.mjs instalar` (baixa da release oficial e confere o SHA-256) e
+   `figcraft.mjs mcp <claude|codex|gemini|antigravity> --escopo usuario|projeto --raiz <pasta>`; peça para reiniciar o
+   agente. Faltas do `doctor` (ffmpeg, whisper, chrome-headless-shell): comandos por sistema em `references/versoes.md`.
+
 ## Fluxo (cada ✋ é um ponto de aprovação do usuário — não avance sem ele)
 
 0. **Contexto frio**: memória primeiro (ai-memory ou notas do projeto, se houver); leia os tokens do produto (CSS/tema), as telas e de onde vêm
    os dados. Consulta em banco de produção só com ok explícito e somente leitura.
-1. **Briefing** ✋ — `references/briefing.md` (rodadas prontas com as opções que funcionaram).
+1. **Briefing** ✋ — `references/briefing.md` (rodadas prontas com as opções que funcionaram). **Sempre** inclua a
+   pergunta de fps no `AskUserQuestion` (30 · 60 · 120, ou o valor que a pessoa digitar) — nunca assuma 30; o valor vai
+   para `src/plano.json` (`fps`). Os tempos do kit são em segundos/base 30, então a animação dura o mesmo em qualquer fps.
 2. **Roteiro e narração** ✋ — texto por cena em `src/roteiro.json`; regras de escrita para TTS em
    `references/narracao.md`. Aprovar o TEXTO antes de gastar cota de TTS.
 3. **Direção visual** ✋ — 3 styleframes (HTML estático → PNG) lado a lado; o usuário escolhe uma.
@@ -119,6 +133,7 @@ do HyperFrames SEMPRE com `PUPPETEER_EXECUTABLE_PATH` apontando pro `chrome-head
 - Projetos encerrados: `~/videos/_arquivo/muri-video/<cliente>/<video>/vN` (via `muri arquivar`; branches no git).
 - `references/historico.md` — lições dos vídeos anteriores e o que reaproveitar.
 - `scripts/hyperframes-ativar.mjs` — ativa/remove as skills oficiais do HyperFrames só no projeto.
+- `scripts/figcraft.mjs` — `detectar` · `instalar` · `mcp <agente>` do FigCraft (macOS, Linux, Windows).
 - Scripts `scripts/*.mjs` citados acima (`entregar`, `sons`, `alinhar`, `narrar`, `quadros`) moram no **projeto** (vêm do template), não nesta pasta.
 - `ferramentas/qa.mjs <projeto> [--sem-prancha] [--cenas a:0,b:5.2]` — QA da entrega: −16 LUFS ±1, ≤ −1,5 dBTP, mesma duração com/sem trilha (±1 quadro), pranchas em `out/qa/`.
 - `ferramentas/analisar_batida.py` (`python3 -E`, precisa de librosa) — grade de batidas com correção de andamento/fase; `--verificar <mp4> --cortes cortes.json` mede cada corte ao acento mais forte (≤ 3 quadros). `muri doctor` confere o ambiente.

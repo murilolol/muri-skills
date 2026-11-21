@@ -10,6 +10,7 @@ decisões são do usuário. As recomendações abaixo são as escolhas que deram
 |---|---|---|
 | Motor? | Remotion (template muri-video) · HyperFrames (HTML/GSAP) · ver os dois num teste curto | não |
 | Formatos? | 16:9 e 9:16, cada um com layout próprio · só 16:9 · só 9:16 | não |
+| Quadros por segundo? **Sempre pergunte, nunca assuma** | 30 fps (padrão, render mais rápido) · 60 fps (movimento mais liso; ~2× o tempo de render) · 120 fps (telas de 120 Hz; ~4× o render, arquivo maior) — o usuário também pode digitar outro valor ("Other"); grave em `src/plano.json` → `fps` e em `producao/estado.json` | não |
 | Resolução e extras? | 4K (Instagram, X e YouTube) + story/feed de divulgação com legenda por rede · 1080p só o vídeo | sim |
 | Para quem / onde? | coordenação/donos/clientes · estágio/portfólio · redes sociais · evento ao vivo | sim |
 | Som? | narração + efeitos + trilha baixa (+ versão sem trilha) · só música · narração sem música | não |

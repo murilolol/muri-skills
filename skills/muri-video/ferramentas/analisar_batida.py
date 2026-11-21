@@ -1,7 +1,7 @@
 """Grade de batidas de uma música e verificação de cortes no vídeo renderizado.
 Uso (com -E, não -I: o -I esconde o site do usuário, onde o pip --user instala o numpy/librosa; rodando o arquivo, o cwd não entra no sys.path):
   python3 -E analisar_batida.py <audio> [-o grade.json]
-  python3 -E analisar_batida.py --verificar <video.mp4> --cortes cortes.json [--fps 30]
+  python3 -E analisar_batida.py --verificar <video.mp4> --cortes cortes.json [--fps <fps do plano.json>]
 cortes.json: lista de segundos [0, 2.1, ...] ou {"quadros": [0, 63, ...]} (usa --fps).
 Método: references/music-beat-sync.md da video-shotcraft + hyperframes.md (story na batida). O beat_track do
 librosa erra o andamento (metade, 2/3, 3/2, dobro): testamos esses períodos e a fase contra os acentos fortes.

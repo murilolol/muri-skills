@@ -70,6 +70,8 @@ Works in Claude Code, Codex and Antigravity. One line to install. Free and open 
 ```bash
 npx skills add murilolol/muri-skills --skill muri-video
 ```
+
+Then ask your agent (Claude Code, Codex, Gemini CLI or Antigravity) to **"set up muri-video"**: it runs `muri doctor` and the FigCraft detector (`scripts/figcraft.mjs detectar`), shows what's missing and asks whether to install FigCraft, which agent gets the MCP (user-wide or project only) and which folder it may use. Every video also asks for the frame rate: 30, 60, 120 or any value you type.
 <!-- /gerado:muri-video -->
 
 <details>

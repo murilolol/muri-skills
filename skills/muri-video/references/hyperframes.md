@@ -30,6 +30,7 @@ npx hyperframes@0.9.77 lint .                   # erros/avisos de estrutura
 npx hyperframes@0.9.77 check .                  # lint + validação em runtime + inspeção de layout
 npx hyperframes@0.9.77 snapshot . --at 1,2.5,4  # PNGs de verificação (equivale ao quadros.mjs)
 npx hyperframes@0.9.77 render . -q draft -o renders/rascunho.mp4      # rápido; final: -q delivery
+npx hyperframes@0.9.77 render . -q delivery --fps 60 -o renders/final.mp4   # fps do briefing (30/60/120; GSAP é em segundos, nada muda)
 npx hyperframes@0.9.77 render . --format mov    # com transparência (ProRes 4444) para sobrepor
 npx hyperframes@0.9.77 audio renders/final.mp4  # onde os sons caem, loudness, silêncios
 npx hyperframes@0.9.77 tts texto.txt --voice pf_dora --lang pt-br -o voz.wav --json   # --json evita o spinner no log

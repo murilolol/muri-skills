@@ -8,8 +8,8 @@ Figma/Penpot/Sketch. Sem isso, os styleframes em HTML estático (fluxo padrão) 
 
 1. Um `.figcraft` por vídeo em `<video>/vN/design/`: um frame por cena (1920×1080 e 1080×1920), variáveis de cor e
    tipografia com os tokens do produto (os mesmos de `src/tema.ts`).
-2. Agente cria/edita pelo MCP (`claude --mcp-config <seu-mcp.json>`, servidor `figcraft`, confinado a
-   `~/videos/`) ou por `figcraft-cli run script.json --out design/video.figcraft`
+2. Agente cria/edita pelo MCP `figcraft` (instalação e registro no agente: `node <pasta-da-skill>/scripts/figcraft.mjs
+   detectar | instalar | mcp <agente>`, ver SKILL.md § Instalação; o servidor só lê/grava a pasta escolhida) ou por `figcraft-cli run script.json --out design/video.figcraft`
    (`figcraft-cli commands --json` lista os comandos). Para ver ao vivo: abrir o app com `--control <porta>` e o MCP
    com `--attach <porta>`.
 3. Pranchas para aprovação ✋: `figcraft-cli export design/video.figcraft -o out/styleframes --format png --scale 1`.

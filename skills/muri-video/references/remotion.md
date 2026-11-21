@@ -42,6 +42,9 @@ Composições: `<projeto>-16x9`, `<projeto>-9x16`, `<cena>-16x9`/`<cena>-9x16` (
 1. Senão, leia o cartão da galeria (`~/.agents/skills/video-shotcraft/references/shots/<categoria>/<plano>.md`; índice em `gallery/api/library.json`) e a demo-fonte; copie
    para `src/demos/` só o que usar. Adapte os tempos-chave, curvas e paradas, não o visual (o visual é o do produto). Siga motion.md: formato nativo, câmera, cursor, continuidade, som por ação.
 2. Âncoras de tempo SEMPRE por `marca(cena, "trecho")` (+/− poucos quadros). Quadro fixo só no começo da cena.
+   **fps livre (30/60/120):** todo número de quadro é "quadro de 30" (`src/kit/tempo.ts`). Na cena use `useQuadro()`
+   (nunca `useCurrentFrame()`), `useDuracao()` no lugar de `useVideoConfig().durationInFrames`, `spring({ fps: BASE })`, e
+   passe por `q()` todo `from`/`durationInFrames`/timing entregue ao Remotion. `quadros.mjs` recebe quadros REAIS (× fps/30).
 3. Telas reais: capture o app em 2× (`ferramentas/capturar.mjs`) com dados fictícios; meça coordenadas na imagem;
    para nitidez em zoom use CSS `zoom` (não `scale`) — regra Q2 da video-shotcraft.
 4. QA: 4–6 quadros em pontos de virada → `python3 <pasta-da-skill>/ferramentas/prancha.py p.jpg a.png b.png …`

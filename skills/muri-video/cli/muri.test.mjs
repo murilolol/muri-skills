@@ -188,3 +188,25 @@ test('doctor lista ferramentas: FALTA e saída 1 sem o chrome-headless-shell, AV
   assert.equal(r.status, 0, r.stdout);
   assert.match(r.stdout, /^OK chrome-headless-shell: /m);
 });
+
+test('figcraft.mjs: detectar acha o CLI no PATH e mcp grava Gemini (JSON) e Codex (TOML) no projeto, sem duplicar', () => {
+  const FIG = fileURLToPath(new URL('../scripts/figcraft.mjs', import.meta.url));
+  const dir = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'muri-fig-')));
+  const bin = path.join(dir, 'bin');
+  fs.mkdirSync(bin);
+  fs.writeFileSync(path.join(bin, 'figcraft-cli' + (WIN ? '.cmd' : '')), WIN ? '@echo figcraft-cli 0.0.0\r\n' : '#!/bin/sh\necho figcraft-cli 0.0.0\n', { mode: 0o755 });
+  const env = { ...Object.fromEntries(Object.entries(process.env).filter(([k]) => k.toUpperCase() !== 'PATH')), PATH: bin };
+  const fig = (...a) => spawnSync(process.execPath, [FIG, ...a], { cwd: dir, env, encoding: 'utf8' });
+  const det = JSON.parse(fig('detectar', '--json').stdout);
+  assert.equal(path.dirname(det.cli), bin);
+  for (const agente of ['gemini', 'codex']) {
+    for (let i = 0; i < 2; i++) assert.equal(fig('mcp', agente, '--escopo', 'projeto', '--raiz', dir).status, 0);
+  }
+  const gem = JSON.parse(fs.readFileSync(path.join(dir, '.gemini/settings.json'), 'utf8')).mcpServers.figcraft;
+  assert.deepEqual(gem.args, ['mcp', '--automation-read-root', dir, '--automation-write-root', dir]);
+  const toml = fs.readFileSync(path.join(dir, '.codex/config.toml'), 'utf8');
+  assert.equal(toml.match(/\[mcp_servers\.figcraft\]/g).length, 1);
+  assert.match(toml, re(`command = ${JSON.stringify(gem.command)}`));
+  assert.equal(fig('mcp', 'codex', '--escopo', 'projeto', '--raiz', path.join(dir, 'nao-existe')).status, 0); // já registrado: não mexe
+  assert.equal(fig('mcp', 'gemini', '--raiz', path.join(dir, 'nao-existe')).status, 1); // pasta inexistente
+});
