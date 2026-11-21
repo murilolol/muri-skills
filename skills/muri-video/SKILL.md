@@ -58,18 +58,19 @@ Esta skill **orquestra** outras — carregue cada uma quando a etapa chegar, nã
   peças curtas (promo 15–45 s, vinheta, slideshow), captura de site (`hyperframes capture`), legenda em vídeo de
   pessoa falando. Detalhes, comandos e armadilhas: `references/hyperframes.md`.
 - **Skills oficiais da HeyGen = sob demanda, só no projeto.** Quando o motor escolhido for HyperFrames (ou um
-  workflow dele for útil), rode `bash <pasta-da-skill>/scripts/hyperframes-ativar.sh <pasta-do-projeto> <workflow>`
+  workflow dele for útil), rode `node <pasta-da-skill>/scripts/hyperframes-ativar.mjs <pasta-do-projeto> <workflow>`
   — instala em `<projeto>/.claude/skills/` (nunca no global; o script confere), e então LEIA
   `<projeto>/.claude/skills/hyperframes/SKILL.md` + o do workflow (a sessão só as carrega sozinha se estiver rodando
-  dentro da pasta). Ao fim do projeto: `… hyperframes-ativar.sh <projeto> --remover`.
+  dentro da pasta). Ao fim do projeto: `… hyperframes-ativar.mjs <projeto> --remover`.
 - Os utilitários do HyperFrames servem também ao Remotion, sem ativar skill nenhuma: `narrar-local.mjs` (voz Kokoro,
   sem cota), `alinhar.mjs` (whisper: instante real de cada palavra) e `hyperframes audio` (onde cada som cai).
 
 ## Ambiente
 
-Versões, `doctor` e instalação: `references/versoes.md`. Render headless
-do HyperFrames SEMPRE com `PUPPETEER_EXECUTABLE_PATH="$(which chrome-headless-shell)"` (sem isso ele abre o
-`Google Chrome.app`, que vaza processo a cada render).
+Versões, `doctor` e instalação em macOS, Linux e Windows: `references/versoes.md`. Scripts
+da skill são Node (`node …/*.mjs`, nada de bash) e rodam nos três; `muri doctor` confere o ambiente. Render headless
+do HyperFrames SEMPRE com `PUPPETEER_EXECUTABLE_PATH` apontando pro `chrome-headless-shell` (comando por shell em
+`versoes.md`; sem isso ele abre o Chrome completo, que vaza processo a cada render).
 
 ## Regras de ouro (cada uma custou retrabalho num vídeo real)
 
@@ -114,10 +115,10 @@ do HyperFrames SEMPRE com `PUPPETEER_EXECUTABLE_PATH="$(which chrome-headless-sh
   base no tema claro (story 9:16 na batida: receita em `references/hyperframes.md`).
 - `cli/muri.mjs` (no PATH como `muri`) — `novo`, `versao`, `status`, `entregar`, `arquivar`, `retomar`; `--sem-deps` pula o
   `pnpm install`. Testes: `node --test` em `cli/` (repo temporário + Orca e ai-memory falsos; nunca toca vídeo real).
-- `scripts/novo-projeto.sh` — exporta a `main` do template para uma pasta qualquer fora do Orca (sem git).
+- `scripts/novo-projeto.mjs` — exporta a `main` do template para uma pasta qualquer fora do Orca (sem git).
 - Projetos encerrados: `~/videos/_arquivo/muri-video/<cliente>/<video>/vN` (via `muri arquivar`; branches no git).
 - `references/historico.md` — lições dos vídeos anteriores e o que reaproveitar.
-- `scripts/hyperframes-ativar.sh` — ativa/remove as skills oficiais do HyperFrames só no projeto.
+- `scripts/hyperframes-ativar.mjs` — ativa/remove as skills oficiais do HyperFrames só no projeto.
 - Scripts `scripts/*.mjs` citados acima (`entregar`, `sons`, `alinhar`, `narrar`, `quadros`) moram no **projeto** (vêm do template), não nesta pasta.
 - `ferramentas/qa.mjs <projeto> [--sem-prancha] [--cenas a:0,b:5.2]` — QA da entrega: −16 LUFS ±1, ≤ −1,5 dBTP, mesma duração com/sem trilha (±1 quadro), pranchas em `out/qa/`.
 - `ferramentas/analisar_batida.py` (`python3 -E`, precisa de librosa) — grade de batidas com correção de andamento/fase; `--verificar <mp4> --cortes cortes.json` mede cada corte ao acento mais forte (≤ 3 quadros). `muri doctor` confere o ambiente.

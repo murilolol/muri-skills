@@ -15,6 +15,6 @@
     "test": "node --test skills/muri-video/cli/muri.test.mjs"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }

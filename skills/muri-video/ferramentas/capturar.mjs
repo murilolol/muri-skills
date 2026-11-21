@@ -14,8 +14,9 @@ mkdirSync(saida, { recursive: true });
 const baseChrome = path.join(process.cwd(), "node_modules/.remotion/chrome-headless-shell");
 const chrome =
   process.env.CHROME ??
+  process.env.PUPPETEER_EXECUTABLE_PATH ??
   (existsSync(baseChrome)
-    ? readdirSync(baseChrome, { recursive: true }).map((p) => path.join(baseChrome, String(p))).find((p) => p.endsWith("/chrome-headless-shell"))
+    ? readdirSync(baseChrome, { recursive: true }).map((p) => path.join(baseChrome, String(p))).find((p) => /^chrome-headless-shell(\.exe)?$/.test(path.basename(p)))
     : undefined);
 if (!chrome) throw new Error("Chrome headless não encontrado: rode dentro de um projeto Remotion já renderizado uma vez, ou defina CHROME");
 const porta = 9333 + Math.floor(Math.random() * 500);

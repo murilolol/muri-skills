@@ -98,7 +98,7 @@ Each ✋ is a point where the skill stops and waits for your OK.
 | `ferramentas/` | QA contact sheets, audio sync and level analysis, 2× captures of real screens |
 | `template/hyperframes/` | Base composition for short pieces |
 
-**Requirements.** Node 18+, FFmpeg and whisper-cpp (`brew install ffmpeg whisper-cpp`); Python 3.11 for local voiceover (`pip3 install kokoro-onnx soundfile transformers torch numpy`). The skill's text is in Portuguese; agents follow it in any language.
+**Requirements (macOS, Linux and Windows).** Node 22+, FFmpeg, whisper-cpp and `chrome-headless-shell`; Python 3 for local voiceover and beat analysis (`kokoro-onnx soundfile transformers torch numpy librosa`). Scripts are Node (`node …/*.mjs`), no bash; per-OS install commands in [`references/versoes.md`](skills/muri-video/references/versoes.md), and `muri doctor` checks the setup. The skill's text is in Portuguese; agents follow it in any language.
 
 > [!IMPORTANT]
 > The Remotion scenes come from a template of my own that is not public yet. Without it, `muri novo` stops with "Template não encontrado": point `MURI_VIDEO_REPO` at a Remotion repository of yours (branch `main`) or use the HyperFrames engine, which works with this folder alone.

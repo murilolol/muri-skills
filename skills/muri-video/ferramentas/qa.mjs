@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 // QA automático da entrega (SKILL.md regra 9, references/render.md): mede out/final/*.mp4 e gera pranchas de QA.
 // Uso: node qa.mjs <pasta-do-projeto> [--sem-prancha] [--cenas abertura:0,meio:5.2,...]
-// Só node (stdlib) + ffmpeg/ffprobe no PATH + python3 com PIL (prancha.py). Sai com 1 se algo falhar.
+// Só node (stdlib) + ffmpeg/ffprobe no PATH + Python 3 com PIL (prancha.py; python3, python ou py -3). Sai com 1 se algo falhar.
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { rodarPython } from './plataforma.mjs';
 
 const args = process.argv.slice(2);
 const opt = (n) => { const i = args.indexOf(n); return i < 0 ? null : args.splice(i, 2)[1]; };
@@ -104,7 +105,7 @@ if (!semPrancha && medidas.length) {
         }
       }
       const saida = path.join(qa, `${String(i + 1).padStart(2, '0')}-${id}.jpg`);
-      const r = run('python3', ['-E', path.join(import.meta.dirname, 'prancha.py'), saida, ...imgs]);
+      const r = rodarPython(['-E', path.join(import.meta.dirname, 'prancha.py'), saida, ...imgs], { encoding: 'utf8', maxBuffer: 1 << 26 });
       if (r.status !== 0) throw new Error(`prancha.py falhou: ${r.stderr.trim()}`);
     });
     fs.rmSync(tmp, { recursive: true });

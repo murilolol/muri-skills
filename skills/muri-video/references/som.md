@@ -50,7 +50,7 @@ Os sons `ui-*-tone`, `ui-confirm-*` e `ui-notify-*` são sintéticos: proibidos 
 
 - `bgm-tech-house` é a única da biblioteca com > 4 min (as outras têm ~2 min).
 - Trilha sob medida: o MusicGen local (deps instaladas, torch com MPS) é o "fallback de música" da skill
-  `media-use` do HyperFrames — ative-a com `hyperframes-ativar.sh` e peça uma trilha do tamanho do vídeo a partir
+  `media-use` do HyperFrames — ative-a com `hyperframes-ativar.mjs` e peça uma trilha do tamanho do vídeo a partir
   de um briefing de clima. Qualidade abaixo da biblioteca Mixkit: só quando nenhuma faixa servir.
 - Volumes do ducking (`VOLUME` em `som.tsx`): 0,07 sob a voz, 0,13 nas pausas, 0,2 na abertura sem voz, 0,24 no
   fim; rampas de 10/14 quadros. Medido: trilha 11–12,5 dB abaixo da voz durante a fala — "trilha baixa" aprovada.

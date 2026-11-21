@@ -1,0 +1,27 @@
+name: test
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm test
+      - name: Scripts carregam (sintaxe e imports)
+        shell: bash
+        run: |
+          for f in skills/muri-video/cli/*.mjs skills/muri-video/scripts/*.mjs skills/muri-video/ferramentas/*.mjs; do node --check "$f"; done
+          python -m py_compile skills/muri-video/ferramentas/*.py
+          node skills/muri-video/scripts/hyperframes-ativar.mjs 2>&1 | grep -q 'uso:'
+          node skills/muri-video/cli/muri.mjs doctor || true

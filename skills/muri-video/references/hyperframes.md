@@ -1,6 +1,6 @@
 # HyperFrames (HeyGen) — motor HTML/GSAP
 
-Repositório: https://github.com/heygen-com/hyperframes · Apache-2.0 · testado na v0.9.77 (21/11/2026: `doctor`, `tts`, `transcribe` ok; v0.8.169 em 17/10) num Mac. Render/snapshot/capture com `PUPPETEER_EXECUTABLE_PATH="$(which chrome-headless-shell)"` (senão usa o `Google Chrome.app`)
+Repositório: https://github.com/heygen-com/hyperframes · Apache-2.0 · testado na v0.9.77 (21/11/2026: `doctor`, `tts`, `transcribe` ok; v0.8.169 em 17/10) num Mac. Render/snapshot/capture com `PUPPETEER_EXECUTABLE_PATH` no `chrome-headless-shell` (comando por shell em `versoes.md`; senão usa o Chrome completo)
 (M5, Node 24, ffmpeg do Homebrew). Docs: hyperframes.heygen.com. CLI sempre via `npx hyperframes@<versão>`.
 
 ## Quando usar (em vez do Remotion)
@@ -59,8 +59,8 @@ Nunca `npx hyperframes skills` nem `npx skills add … -g` (instalariam ~21 skil
 pesariam em toda sessão, inclusive no muri-saver). Use:
 
 ```bash
-bash <pasta-da-skill>/scripts/hyperframes-ativar.sh <pasta-do-projeto> <workflow …>   # ativa
-bash <pasta-da-skill>/scripts/hyperframes-ativar.sh <pasta-do-projeto> --remover       # desativa
+node <pasta-da-skill>/scripts/hyperframes-ativar.mjs <pasta-do-projeto> <workflow …>   # ativa
+node <pasta-da-skill>/scripts/hyperframes-ativar.mjs <pasta-do-projeto> --remover       # desativa
 ```
 
 Instala o núcleo (`hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`) + as extras pedidas, como
@@ -79,7 +79,7 @@ Resultado: 30,5 s, 11 cartões, render "delivery" em 45 s, 6,6 MB. Estrutura: um
 `compositions/cNN.html` + `fundo.html` + `index.html` a partir de uma lista de cartões (textos, tempos e cores).
 
 1. `npx hyperframes@0.9.77 init <proj> --example blank --non-interactive --resolution portrait` (com
-   `HYPERFRAMES_SKIP_SKILLS=1`) e `hyperframes-ativar.sh <proj>` (só o núcleo).
+   `HYPERFRAMES_SKIP_SKILLS=1`) e `hyperframes-ativar.mjs <proj>` (só o núcleo).
 2. **Nunca rode `npx hyperframes skills update`**, mesmo que o workflow oficial mande: ele atualiza o conjunto GLOBAL.
    As cópias do projeto acabaram de ser instaladas e já estão atualizadas.
 3. Música: escolha na biblioteca (um hip-hop de ~86 BPM, por exemplo), tire a grade de batidas

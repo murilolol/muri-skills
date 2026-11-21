@@ -4,7 +4,7 @@
 
 - **No Orca (padrão):** crie um workspace novo no projeto Muri Video. Ele nasce da `main` do repositório do template
   (`MURI_VIDEO_REPO`, padrão `~/videos/projetos/muri-video`); rode `pnpm install --frozen-lockfile` (o setup do Orca já faz) e troque `projeto` em `src/plano.json`.
-- **Fora do Orca:** `bash <pasta-da-skill>/scripts/novo-projeto.sh <pasta> NomeDoProjeto` exporta a mesma `main`
+- **Fora do Orca:** `node <pasta-da-skill>/scripts/novo-projeto.mjs <pasta> NomeDoProjeto` exporta a mesma `main`
   (via `git archive`), ajusta o `plano.json` e instala. Remotion 4.0.545 (desde 21/11/2026; ver `versoes.md`), React 19.
 
 ## Arquivos (o que cada um decide)

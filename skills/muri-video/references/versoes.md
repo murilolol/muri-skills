@@ -13,14 +13,26 @@ Conferido em 21/11/2026 neste Mac (M5, macOS 26, Node 24.21).
 
 ## Chrome headless
 
-HyperFrames usa o `Google Chrome.app` por padrão — cada Chrome completo morto vaza um `code_sign_clone`. Sempre:
-`export PUPPETEER_EXECUTABLE_PATH="$(which chrome-headless-shell)"` antes de `render`/`snapshot`/`capture`
-(`CHROME_PATH` NÃO funciona; conferido no `doctor`).
+HyperFrames usa o Chrome completo do sistema por padrão (no macOS, cada um morto vaza um `code_sign_clone`). Sempre
+aponte `PUPPETEER_EXECUTABLE_PATH` pro `chrome-headless-shell` antes de `render`/`snapshot`/`capture`
+(`CHROME_PATH` NÃO funciona; conferido no `doctor`):
 
-## Conferir / instalar em outra máquina
+- macOS/Linux: `export PUPPETEER_EXECUTABLE_PATH="$(command -v chrome-headless-shell)"`
+- Windows (PowerShell): `$env:PUPPETEER_EXECUTABLE_PATH = (Get-Command chrome-headless-shell).Source`
 
-```bash
-npx hyperframes@0.9.77 doctor
-brew install ffmpeg whisper-cpp && brew install --cask figcraft
-pip3 install kokoro-onnx soundfile transformers torch numpy librosa
-```
+## Instalar (macOS, Linux, Windows)
+
+Tudo da skill é Node ≥ 22 (`node …/*.mjs`) ou Python 3. Onde a doc diz `python3`, no Windows use `py -3` (ou
+`python`); os scripts Node já escolhem sozinhos. Conferir: `muri doctor` e `npx hyperframes@0.9.77 doctor`.
+
+| | macOS | Linux (Debian/Ubuntu) | Windows |
+|---|---|---|---|
+| FFmpeg | `brew install ffmpeg` | `sudo apt install ffmpeg` | `winget install Gyan.FFmpeg` |
+| whisper-cpp (`whisper-cli`) | `brew install whisper-cpp` | compilar `ggml-org/whisper.cpp` (`cmake -B build && cmake --build build`) e pôr `build/bin` no PATH | `whisper-bin-x64.zip` das releases de `ggml-org/whisper.cpp`, pasta no PATH |
+| chrome-headless-shell | `npx @puppeteer/browsers install chrome-headless-shell@stable` e pôr no PATH | idem | idem |
+| FigCraft (opcional) | `brew install --cask figcraft` + `figcraft-cli-*-macos-universal.zip` | `.deb`/`.rpm`/AppImage das releases | `.msi` das releases |
+| Python | `pip3 install kokoro-onnx soundfile transformers torch numpy librosa` | idem | `py -3 -m pip install …` (mesma lista) |
+
+`figcraft-cli` separado só sai para macOS; em Linux/Windows compile com `cargo build --release -p figcraft-cli`
+(repo `storytold/figcraft`). O Orca (`muri novo/versao/status`) é opcional: fora do macOS a CLI procura `orca` no
+PATH e, se não achar, só avisa.
