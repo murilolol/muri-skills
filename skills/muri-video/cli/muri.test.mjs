@@ -160,3 +160,21 @@ test('retomar mostra etapa, aprovações pendentes, próxima ação e handoffs a
   assert.match(r.stdout, /h1 · claude-code · 27\/10\/2026 20:50/);
   assert.match(chamadas(), new RegExp(`ai-memory handoffs --json \\(em ${v1}\\)`));
 });
+
+test('doctor lista ferramentas: FALTA e saída 1 sem o chrome-headless-shell, AVISO pro opcional, e 0 quando os obrigatórios existem', () => {
+  const bin = fs.mkdtempSync(path.join(os.tmpdir(), 'muri-doctor-'));
+  const falso = (n) => fs.writeFileSync(path.join(bin, n), '#!/bin/sh\n', { mode: 0o755 });
+  ['ffmpeg', 'ffprobe', 'whisper-cli'].forEach(falso);
+  const doctor = () => spawnSync(process.execPath, [MURI, 'doctor'], { env: { ...process.env, PATH: bin }, encoding: 'utf8' }); // PATH só com os falsos: sem python3 e sem figcraft-cli
+  let r = doctor();
+  assert.equal(r.status, 1);
+  assert.match(r.stdout, /^OK ffmpeg: /m);
+  assert.match(r.stdout, /^FALTA chrome-headless-shell/m);
+  assert.match(r.stdout, /^AVISO figcraft-cli/m);
+  assert.match(r.stdout, /^AVISO python3: /m);
+  assert.match(r.stdout, /npx hyperframes@0\.9\.77 doctor/);
+  falso('chrome-headless-shell');
+  r = doctor();
+  assert.equal(r.status, 0, r.stdout);
+  assert.match(r.stdout, /^OK chrome-headless-shell: /m);
+});

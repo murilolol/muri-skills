@@ -5,7 +5,7 @@
 - **No Orca (padrão):** crie um workspace novo no projeto Muri Video. Ele nasce da `main` do repositório do template
   (`MURI_VIDEO_REPO`, padrão `~/videos/projetos/muri-video`); rode `pnpm install --frozen-lockfile` (o setup do Orca já faz) e troque `projeto` em `src/plano.json`.
 - **Fora do Orca:** `bash <pasta-da-skill>/scripts/novo-projeto.sh <pasta> NomeDoProjeto` exporta a mesma `main`
-  (via `git archive`), ajusta o `plano.json` e instala. Remotion 4.0.540 (desde 03/11/2026), React 19.
+  (via `git archive`), ajusta o `plano.json` e instala. Remotion 4.0.545 (desde 21/11/2026; ver `versoes.md`), React 19.
 
 ## Arquivos (o que cada um decide)
 
@@ -39,7 +39,7 @@ Composições: `<projeto>-16x9`, `<projeto>-9x16`, `<cena>-16x9`/`<cena>-9x16` (
    use a peça (ex.: `Placar` com `frame` e `k`) dentro do `Palco`. Ajuste as props no Studio (pasta "Planos") e copie
    os valores para a cena. Plano com duração por lista (`transicoes`, `morph`, `baloes`) tem `duracaoDe`: o Root usa
    `calculateMetadata`, então a composição cresce sozinha ao editar a lista.
-1. Senão, leia o cartão da galeria (`references/shots/<plano>.md` da video-shotcraft) e a demo-fonte; copie
+1. Senão, leia o cartão da galeria (`~/.agents/skills/video-shotcraft/references/shots/<categoria>/<plano>.md`; índice em `gallery/api/library.json`) e a demo-fonte; copie
    para `src/demos/` só o que usar. Adapte os tempos-chave, curvas e paradas, não o visual (o visual é o do produto). Siga motion.md: formato nativo, câmera, cursor, continuidade, som por ação.
 2. Âncoras de tempo SEMPRE por `marca(cena, "trecho")` (+/− poucos quadros). Quadro fixo só no começo da cena.
 3. Telas reais: capture o app em 2× (`ferramentas/capturar.mjs`) com dados fictícios; meça coordenadas na imagem;

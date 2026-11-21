@@ -6,9 +6,7 @@
 # Uso:
 #   bash <pasta-da-skill>/scripts/hyperframes-ativar.sh <pasta-do-projeto> [workflow …]
 #   bash <pasta-da-skill>/scripts/hyperframes-ativar.sh <pasta-do-projeto> --remover
-# Workflows (escolha pelo tipo de peça): product-launch-video · motion-graphics · general-video · slideshow ·
-#   music-to-video · pr-to-video · faceless-explainer · embedded-captions · talking-head-recut ·
-#   remotion-to-hyperframes · figma
+# Extras (conjunto da v0.9.77): slideshow · figma · remotion-to-hyperframes · reverse-any-video · style-sampling
 set -euo pipefail
 
 projeto="${1:?uso: hyperframes-ativar.sh <pasta-do-projeto> [workflow …] | --remover}"
@@ -16,10 +14,10 @@ shift
 mkdir -p "$projeto"
 cd "$projeto"
 
-NUCLEO=(hyperframes hyperframes-core hyperframes-cli hyperframes-animation hyperframes-audio media-use)
+NUCLEO=(hyperframes hyperframes-cli hyperframes-registry media-use)
 
 if [ "${1:-}" = "--remover" ]; then
-  instaladas=$(ls .claude/skills 2>/dev/null | grep -E '^(hyperframes|media-use|product-launch-video|motion-graphics|general-video|slideshow|music-to-video|pr-to-video|faceless-explainer|embedded-captions|talking-head-recut|remotion-to-hyperframes|figma)' || true)
+  instaladas=$(ls .claude/skills 2>/dev/null | grep -E '^(hyperframes(-cli|-registry)?|media-use|slideshow|figma|remotion-to-hyperframes|reverse-any-video|style-sampling)$' || true)
   if [ -z "$instaladas" ]; then echo "Nenhuma skill do HyperFrames neste projeto."; exit 0; fi
   # shellcheck disable=SC2086
   npx -y skills remove $instaladas -y

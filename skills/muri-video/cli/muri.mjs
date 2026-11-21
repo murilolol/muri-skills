@@ -146,9 +146,30 @@ function retomar([de]) {
   }
 }
 
+// Ambiente de produção: obrigatórios (FALTA, sai 1) e opcionais (AVISO). Não instala nem inicia nada.
+function doctor() {
+  const achar = (n) => (process.env.PATH ?? '').split(path.delimiter).map((d) => path.join(d, n)).find((p) => { try { fs.accessSync(p, fs.constants.X_OK); return fs.statSync(p).isFile(); } catch { return false; } });
+  const linha = (nivel, nome, extra = '') => console.log(`${nivel} ${nome}${extra ? `: ${extra}` : ''}`);
+  let falhou = false;
+  const major = Number(process.versions.node.split('.')[0]);
+  linha(major >= 22 ? 'OK' : 'FALTA', 'node', major >= 22 ? process.versions.node : `${process.versions.node} (precisa ≥ 22)`);
+  falhou ||= major < 22;
+  for (const [nome, obrigatorio] of [['ffmpeg', 1], ['ffprobe', 1], ['whisper-cli', 1], ['chrome-headless-shell', 1], ['figcraft-cli', 0]]) {
+    const p = achar(nome);
+    linha(p ? 'OK' : obrigatorio ? 'FALTA' : 'AVISO', nome, p ?? (obrigatorio ? '' : 'opcional (styleframes editáveis)'));
+    falhou ||= !p && Boolean(obrigatorio);
+  }
+  const mods = ['kokoro_onnx', 'soundfile', 'librosa'];
+  const r = spawnSync('python3', ['-E', '-c', 'import importlib.util as u,sys;print(" ".join(m for m in sys.argv[1:] if not u.find_spec(m)))', ...mods], { encoding: 'utf8', cwd: '/' }); // -E (não -I): módulos do pip --user contam; cwd '/' pra não ler módulo do diretório atual
+  if (r.status !== 0) linha('AVISO', 'python3', 'indisponível (voz local Kokoro e análise de batida precisam dele)');
+  else for (const m of mods) linha(r.stdout.split(/\s+/).includes(m) ? 'AVISO' : 'OK', `python3 ${m}`, r.stdout.split(/\s+/).includes(m) ? `pip3 install ${m.replace('_', '-')}` : '');
+  console.log('HyperFrames: PUPPETEER_EXECUTABLE_PATH="$(which chrome-headless-shell)" npx hyperframes@0.9.77 doctor');
+  process.exitCode = falhou ? 1 : 0;
+}
+
 const [cmd, ...resto] = process.argv.slice(2);
 const deps = !resto.includes('--sem-deps');
 const args = resto.filter((a) => a !== '--sem-deps');
-const comandos = { novo, versao, status, entregar, arquivar, retomar };
-if (!comandos[cmd]) falha('uso: muri novo <cliente> <video> | versao [pasta] | status | entregar [pasta] | arquivar [pasta] | retomar [pasta]  (--sem-deps pula o pnpm install)');
+const comandos = { doctor, novo, versao, status, entregar, arquivar, retomar };
+if (!comandos[cmd]) falha('uso: muri novo <cliente> <video> | versao [pasta] | status | entregar [pasta] | arquivar [pasta] | retomar [pasta] | doctor  (--sem-deps pula o pnpm install)');
 comandos[cmd](args);
