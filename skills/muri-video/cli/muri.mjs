@@ -5,11 +5,14 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { acharNoPath, comChromeHeadless, rodarNpm, rodarPython } from '../ferramentas/plataforma.mjs';
 
 const HOME = os.homedir();
 const raiz = process.env.MURI_ORCA_RAIZ ?? `${HOME}/videos/muri-video`;
 const repo = process.env.MURI_VIDEO_REPO ?? `${HOME}/videos/projetos/muri-video`;
-const ORCA = process.env.MURI_ORCA_BIN ?? '/Applications/Orca.app/Contents/Resources/bin/orca';
+const ORCA = process.env.MURI_ORCA_BIN ?? (process.platform === 'darwin' ? '/Applications/Orca.app/Contents/Resources/bin/orca' : 'orca');
+// binário externo; .mjs/.js roda pelo próprio node (os falsos dos testes funcionam igual no Windows)
+const executar = (bin, args, opts) => (/\.m?js$/.test(bin) ? spawnSync(process.execPath, [bin, ...args], opts) : spawnSync(bin, args, opts));
 
 const git = (cwd, ...a) => execFileSync('git', a, { cwd, encoding: 'utf8' }).trim();
 const falha = (msg) => { console.error(msg); process.exit(1); };
@@ -23,7 +26,7 @@ const partes = (pasta) => path.relative(fs.realpathSync(raiz), pasta).split(path
 
 // O Orca é metadado: se falhar, avisa e segue (a pasta já está pronta)
 function orca(...args) {
-  const r = spawnSync(ORCA, args, { encoding: 'utf8' });
+  const r = executar(ORCA, args, { encoding: 'utf8' });
   if (r.status !== 0) console.error(`Aviso: orca ${args.slice(0, 2).join(' ')} falhou: ${(r.stderr || r.error?.message || '').trim()}`);
 }
 const sincronizar = (pasta) =>
@@ -34,7 +37,7 @@ function preparar(destino) {
   // todas as versões do vídeo caem no mesmo projeto do ai-memory
   const toml = path.join(destino, '.ai-memory.toml');
   if (!fs.existsSync(toml)) fs.writeFileSync(toml, `project = "${rel}"\nproject_strategy = "repo-root"\n\n[capture]\nignore_paths = ["node_modules/**", ".env", "**/.env", ".git/**", "out/**", "build/**"]\n`);
-  if (deps) execFileSync('pnpm', ['install', '--frozen-lockfile'], { cwd: destino, stdio: 'inherit' });
+  if (deps && rodarNpm('pnpm', ['install', '--frozen-lockfile'], { cwd: destino, stdio: 'inherit' }).status !== 0) falha(`pnpm install falhou em ${destino}`);
   sincronizar(destino);
   console.log(`Pronto: ${destino}`);
 }
@@ -52,7 +55,7 @@ function novo([cliente, video]) {
 function pastaVersao(de = '.') {
   let p = fs.realpathSync(de);
   while (!/^v\d+$/.test(path.basename(p))) {
-    if (p === '/') falha(`Não achei uma pasta vN acima de ${de}.`);
+    if (p === path.dirname(p)) falha(`Não achei uma pasta vN acima de ${de}.`);
     p = path.dirname(p);
   }
   return p;
@@ -136,7 +139,7 @@ function retomar([de]) {
   console.log(`Etapa: ${etapa}`);
   console.log(`Aprovação pendente: ${pendentes.join(', ') || 'nenhuma'}`);
   console.log(`Próxima ação: ${proximaAcao}`);
-  const r = spawnSync(process.env.MURI_AI_MEMORY_BIN ?? 'ai-memory', ['handoffs', '--json'], { cwd: pasta, encoding: 'utf8' });
+  const r = executar(process.env.MURI_AI_MEMORY_BIN ?? 'ai-memory', ['handoffs', '--json'], { cwd: pasta, encoding: 'utf8' });
   let handoffs;
   try { handoffs = JSON.parse(r.stdout); } catch { return console.log('Handoffs: ai-memory indisponível.'); }
   console.log(`Handoffs abertos: ${handoffs.length || 'nenhum'}`);
@@ -146,9 +149,29 @@ function retomar([de]) {
   }
 }
 
+// Ambiente de produção: obrigatórios (FALTA, sai 1) e opcionais (AVISO). Não instala nem inicia nada.
+function doctor() {
+  const linha = (nivel, nome, extra = '') => console.log(`${nivel} ${nome}${extra ? `: ${extra}` : ''}`);
+  let falhou = false;
+  const major = Number(process.versions.node.split('.')[0]);
+  linha(major >= 22 ? 'OK' : 'FALTA', 'node', major >= 22 ? process.versions.node : `${process.versions.node} (precisa ≥ 22)`);
+  falhou ||= major < 22;
+  for (const [nome, obrigatorio] of [['ffmpeg', 1], ['ffprobe', 1], ['whisper-cli', 1], ['chrome-headless-shell', 1], ['figcraft-cli', 0]]) {
+    const p = acharNoPath(nome);
+    linha(p ? 'OK' : obrigatorio ? 'FALTA' : 'AVISO', nome, p ?? (obrigatorio ? '' : 'opcional (styleframes editáveis)'));
+    falhou ||= !p && Boolean(obrigatorio);
+  }
+  const mods = ['kokoro_onnx', 'soundfile', 'librosa'];
+  const r = rodarPython(['-E', '-c', 'import importlib.util as u,sys;print(" ".join(m for m in sys.argv[1:] if not u.find_spec(m)))', ...mods], { encoding: 'utf8', cwd: path.parse(process.cwd()).root }); // -E (não -I): módulos do pip --user contam; cwd na raiz pra não ler módulo do diretório atual
+  if (r.status !== 0) linha('AVISO', 'python', 'Python 3 indisponível (voz local Kokoro e análise de batida precisam dele)');
+  else for (const m of mods) linha(r.stdout.split(/\s+/).includes(m) ? 'AVISO' : 'OK', `python ${m}`, r.stdout.split(/\s+/).includes(m) ? `pip install ${m.replace('_', '-')}` : '');
+  console.log(`HyperFrames: ${comChromeHeadless('npx hyperframes@0.9.77 doctor')}`);
+  process.exitCode = falhou ? 1 : 0;
+}
+
 const [cmd, ...resto] = process.argv.slice(2);
 const deps = !resto.includes('--sem-deps');
 const args = resto.filter((a) => a !== '--sem-deps');
-const comandos = { novo, versao, status, entregar, arquivar, retomar };
-if (!comandos[cmd]) falha('uso: muri novo <cliente> <video> | versao [pasta] | status | entregar [pasta] | arquivar [pasta] | retomar [pasta]  (--sem-deps pula o pnpm install)');
+const comandos = { doctor, novo, versao, status, entregar, arquivar, retomar };
+if (!comandos[cmd]) falha('uso: muri novo <cliente> <video> | versao [pasta] | status | entregar [pasta] | arquivar [pasta] | retomar [pasta] | doctor  (--sem-deps pula o pnpm install)');
 comandos[cmd](args);

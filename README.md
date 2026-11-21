@@ -98,7 +98,7 @@ Cada ✋ é um ponto em que a skill para e espera o seu ok.
 | `ferramentas/` | Pranchas de QA, análise de sincronia e níveis de áudio, captura de telas reais em 2× |
 | `template/hyperframes/` | Composição base para peças curtas |
 
-**Requisitos.** Node 18+, FFmpeg e whisper-cpp (`brew install ffmpeg whisper-cpp`); Python 3.11 para narração local (`pip3 install kokoro-onnx soundfile transformers torch numpy`).
+**Requisitos (macOS, Linux e Windows).** Node 22+, FFmpeg, whisper-cpp e `chrome-headless-shell`; Python 3 para narração local e análise de batida (`kokoro-onnx soundfile transformers torch numpy librosa`). Os scripts são Node (`node …/*.mjs`), sem bash; comandos de instalação por sistema em [`references/versoes.md`](skills/muri-video/references/versoes.md) e `muri doctor` confere o ambiente.
 
 > [!IMPORTANT]
 > As cenas Remotion saem de um template próprio que ainda não é público. Sem ele, `muri novo` para com "Template não encontrado": aponte `MURI_VIDEO_REPO` para um repositório Remotion seu (branch `main`) ou use o motor HyperFrames, que funciona só com esta pasta.

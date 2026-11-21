@@ -10,18 +10,19 @@ chamou de "absurdo de perfeito" e pediu como nível mínimo de **todo** vídeo, 
 produto, câmera 2.5D, cursor, continuidade entre cenas, luz nos dados e som em cada ação. Leia `references/motion.md`
 antes de propor a direção visual e de escrever qualquer cena.
 
-Base anterior: o vídeo-base institucional (3 min 39 s, 13 cenas, aprovado como "absurdo de bom") e um story de 30 s em
-HyperFrames. Tudo aqui foi validado nesses projetos; os números e as armadilhas são medidos, não teóricos.
+Base anterior (vídeo-base institucional e story em HyperFrames): `references/historico.md`. Os números e as
+armadilhas daqui são medidos, não teóricos. Versões testadas e ambiente: `references/versoes.md`.
 
 Esta skill **orquestra** outras — carregue cada uma quando a etapa chegar, não antes:
 
 | Skill | Para quê |
 |---|---|
 | `video-shotcraft` | galeria de planos (receitas de movimento), demos-fonte, biblioteca de áudio Mixkit, regras estéticas R/Q/S/C/P, `final-review.md` |
-| `remotion-best-practices` | API do Remotion quando surgir dúvida pontual (oficial `remotion-dev/skills`, 4.0.540; atualizar com `npx skills add remotion-dev/skills`) |
+| `remotion-best-practices` | API do Remotion quando surgir dúvida pontual (oficial `remotion-dev/skills`; versão em `references/versoes.md`) |
 | `dataviz` | qualquer gráfico/contador/painel de números (paleta validada, marcas finas) |
 | `grill-me` | o jeito de perguntar: rodadas densas no `AskUserQuestion`, recomendada primeiro |
 | HyperFrames (`npx hyperframes`) | motor alternativo em HTML/GSAP — ver `references/hyperframes.md` |
+| FigCraft (`figcraft-cli`) | styleframes e tokens editáveis (opcional) — ver `references/figcraft.md` |
 
 ## Fluxo (cada ✋ é um ponto de aprovação do usuário — não avance sem ele)
 
@@ -53,23 +54,23 @@ Esta skill **orquestra** outras — carregue cada uma quando a etapa chegar, nã
 
 - **Remotion** (template desta skill): vídeo longo dirigido pela narração, muitos dados, cenas React com lógica,
   pipeline de som/QA já provado. É o padrão.
-- **HyperFrames** (HeyGen, Apache-2.0, testado v0.8.169): composição em HTML/CSS + GSAP, sem build; bom para
+- **HyperFrames** (HeyGen, Apache-2.0, testado v0.9.77): composição em HTML/CSS + GSAP, sem build; bom para
   peças curtas (promo 15–45 s, vinheta, slideshow), captura de site (`hyperframes capture`), legenda em vídeo de
   pessoa falando. Detalhes, comandos e armadilhas: `references/hyperframes.md`.
 - **Skills oficiais da HeyGen = sob demanda, só no projeto.** Quando o motor escolhido for HyperFrames (ou um
-  workflow dele for útil), rode `bash <pasta-da-skill>/scripts/hyperframes-ativar.sh <pasta-do-projeto> <workflow>`
+  workflow dele for útil), rode `node <pasta-da-skill>/scripts/hyperframes-ativar.mjs <pasta-do-projeto> <workflow>`
   — instala em `<projeto>/.claude/skills/` (nunca no global; o script confere), e então LEIA
   `<projeto>/.claude/skills/hyperframes/SKILL.md` + o do workflow (a sessão só as carrega sozinha se estiver rodando
-  dentro da pasta). Ao fim do projeto: `… hyperframes-ativar.sh <projeto> --remover`.
+  dentro da pasta). Ao fim do projeto: `… hyperframes-ativar.mjs <projeto> --remover`.
 - Os utilitários do HyperFrames servem também ao Remotion, sem ativar skill nenhuma: `narrar-local.mjs` (voz Kokoro,
   sem cota), `alinhar.mjs` (whisper: instante real de cada palavra) e `hyperframes audio` (onde cada som cai).
 
-## Ambiente (validado em macOS, 17/10/2026)
+## Ambiente
 
-FFmpeg 9.0.2 completo (x264/x265/ProRes/VP9/AAC/Opus) e whisper-cpp via Homebrew; Python 3.11 com kokoro-onnx,
-soundfile, torch 2.14 (MPS) e transformers (MusicGen); Chrome headless em cache; modelo whisper `small`
-(multilíngue) baixado. Conferir: `npx hyperframes@0.8.169 doctor` (tudo ✓). Instalar:
-`brew install ffmpeg whisper-cpp` e `pip3 install kokoro-onnx soundfile transformers torch numpy`.
+Versões, `doctor` e instalação em macOS, Linux e Windows: `references/versoes.md`. Scripts
+da skill são Node (`node …/*.mjs`, nada de bash) e rodam nos três; `muri doctor` confere o ambiente. Render headless
+do HyperFrames SEMPRE com `PUPPETEER_EXECUTABLE_PATH` apontando pro `chrome-headless-shell` (comando por shell em
+`versoes.md`; sem isso ele abre o Chrome completo, que vaza processo a cada render).
 
 ## Regras de ouro (cada uma custou retrabalho num vídeo real)
 
@@ -89,26 +90,20 @@ soundfile, torch 2.14 (MPS) e transformers (MusicGen); Chrome headless em cache;
    em cima e embaixo. Confira sempre os dois formatos na mesma prancha.
 6. **Nada de estado intermediário enganoso**: contador mostrando "0.000" por segundos, dígito parcial que se lê
    como outro número ("96" passando por "55"), painel fictício com números quase iguais aos reais.
-7. **Som**: alinhe o PICO do arquivo ao quadro-alvo (`scripts/sons.mjs` mede); som com pico < −12 dBFS some sob a
-   voz (use `--ganho`); trilha ~11 dB abaixo da voz; sempre uma versão sem trilha.
-8. **Render**: `scripts/entregar.mjs` — imagem muda por formato em paralelo + áudio à parte + `montar.mjs` (−16 LUFS,
-   alvo TP −2 para o AAC ficar ≤ −1,5 dBTP). Renders em `out/render/`, finais em `out/final/` — o disco do Mac não
-   diferencia maiúsculas (já destruiu um render).
-9. **QA por cena** com pranchas de quadros antes de seguir; no filme montado, confira legenda × conteúdo.
-10. **Motion** (`references/motion.md`): câmera 2.5D moderada que endireita para ler; cursor/toque que clica alvos
-    reais com consequência e som; a cena seguinte começa onde a anterior terminou; dados que acendem com luz; estado
-    visual muda a cada 1,5–3 s. Sem isso o vídeo é reprovado como "sem animação, repetitivo". Acabamento de cinema
-    (`kit/efeitos.tsx`, motion.md §10): luz no corte, brilho no que acende, grifo na fala, título que cabe, legenda
-    palavra a palavra no 9:16, grade nas telas reais. Motion blur fica desligado (fantasma no odômetro).
-    Biblioteca de planos (`src/kit/planos/`, motion.md §11): placar, odômetro, mapa vivo, hemiciclo, busca ⌘K, abas,
-    séries, linha/morph, pizza, setas, balões, transições e, em cena pronta (`CenaPronta`), mapa 5 modos, replay,
-    fechamento por estado, resultado, comparações e dispersão, com schema zod e padrões do vídeo-referência.
-    Use antes de escrever animação do zero.
+7. **Som** (`som.md`): pico do arquivo no quadro-alvo; trilha ~11 dB abaixo da voz; sempre uma versão sem trilha.
+8. **Render** (`render.md`): `scripts/entregar.mjs` do projeto; −16 LUFS, ≤ −1,5 dBTP; renders em `out/render/`,
+   finais em `out/final/` (o disco do Mac não diferencia maiúsculas — já destruiu um render).
+9. **QA por cena** com pranchas de quadros antes de seguir; no filme montado, confira legenda × conteúdo. Antes de
+    entregar: `node <pasta-da-skill>/ferramentas/qa.mjs <projeto>` (LUFS/TP, duração com × sem trilha, pranchas dos dois formatos; exit 1 = não entregue). Área segura e tamanho de texto só a olho nas pranchas.
+10. **Motion** (`motion.md`): câmera 2.5D que endireita para ler, cursor com consequência e som, continuidade
+    entre cenas, dados que acendem, estado visual novo a cada 1,5–3 s (sem isso: "sem animação, repetitivo").
+    Acabamento em §10, biblioteca de planos `src/kit/planos/` em §11 — use antes de animar do zero. Sem
+    `Math.random()`/`Date.now()` nas cenas (render tem de ser determinístico; use `random(seed)` do Remotion).
 11. **Aprovação**: toda pergunta e aprovação no `AskUserQuestion`; evidência (frase do usuário) em
     `producao/estado.json`. Enquanto espera o usuário, `etapa` começa com `aguardando_aprovacao_` (o Orca mostra
     in-review); a cada aprovação, handoff no ai-memory com o nome `<cliente> <video> vN (<etapa>)`. Ajuste recusado não volta; ajuste num formato não se aplica sozinho ao outro.
-12. **Revisão independente**: Gemini/AGY só leitura nos quadros; confira cada sugestão contra o dado e a sincronia
-    antes de aplicar.
+12. **Revisão independente**: subagente `batedor` (só leitura) nos quadros; confira cada sugestão contra o dado e a
+    sincronia antes de aplicar.
 13. **Contexto**: vídeo de 4 min é sessão longa — QA visual gasta muito contexto. Corte em pontos naturais
     (após storyboard; após metade das cenas) com handoff no ai-memory.
 
@@ -120,10 +115,13 @@ soundfile, torch 2.14 (MPS) e transformers (MusicGen); Chrome headless em cache;
   base no tema claro (story 9:16 na batida: receita em `references/hyperframes.md`).
 - `cli/muri.mjs` (no PATH como `muri`) — `novo`, `versao`, `status`, `entregar`, `arquivar`, `retomar`; `--sem-deps` pula o
   `pnpm install`. Testes: `node --test` em `cli/` (repo temporário + Orca e ai-memory falsos; nunca toca vídeo real).
-- `scripts/novo-projeto.sh` — exporta a `main` do template para uma pasta qualquer fora do Orca (sem git).
+- `scripts/novo-projeto.mjs` — exporta a `main` do template para uma pasta qualquer fora do Orca (sem git).
 - Projetos encerrados: `~/videos/_arquivo/muri-video/<cliente>/<video>/vN` (via `muri arquivar`; branches no git).
 - `references/historico.md` — lições dos vídeos anteriores e o que reaproveitar.
-- `scripts/hyperframes-ativar.sh` — ativa/remove as skills oficiais do HyperFrames só no projeto.
+- `scripts/hyperframes-ativar.mjs` — ativa/remove as skills oficiais do HyperFrames só no projeto.
+- Scripts `scripts/*.mjs` citados acima (`entregar`, `sons`, `alinhar`, `narrar`, `quadros`) moram no **projeto** (vêm do template), não nesta pasta.
+- `ferramentas/qa.mjs <projeto> [--sem-prancha] [--cenas a:0,b:5.2]` — QA da entrega: −16 LUFS ±1, ≤ −1,5 dBTP, mesma duração com/sem trilha (±1 quadro), pranchas em `out/qa/`.
+- `ferramentas/analisar_batida.py` (`python3 -E`, precisa de librosa) — grade de batidas com correção de andamento/fase; `--verificar <mp4> --cortes cortes.json` mede cada corte ao acento mais forte (≤ 3 quadros). `muri doctor` confere o ambiente.
 - `ferramentas/prancha.py` (pranchas de QA), `ferramentas/analisar_audio.py` (sincronia e níveis no render),
   `ferramentas/capturar.mjs` (captura páginas do app em 2× pelo DevTools, para telas reais).
 

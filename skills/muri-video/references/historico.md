@@ -10,7 +10,9 @@ grave cada vídeo num projeto próprio (`muri novo` cria o `.ai-memory.toml`) e 
   de fundo funcionaram melhor que estética editorial/papel. Proponha como referência, sem impor a outros produtos.
 - Vozes Gemini TTS testadas em pt-BR: Achird (narração institucional) e Sulafat (stories). Confirme voz e
   disponibilidade do modelo antes de cada TTS.
-- Divisão de trabalho entre agentes: um coordena, outro implementa, um terceiro pesquisa e resume com contexto curto.
+- Divisão de trabalho entre agentes: o fio principal decide e revisa; um subagente implementa; outro, só leitura,
+  pesquisa e revisa os quadros.
+- Base anterior: vídeo-base institucional (3 min 39 s, 13 cenas, "absurdo de bom") e story de 30 s em HyperFrames.
 - Narração define a duração; alinhar com whisper. Cortes automáticos de silêncio precisam de revisão auditiva.
 - Âncoras de `marca()` devem existir no roteiro atual. Não herde frases e SFX de outro filme.
 - Grão animado elevou um render para cerca de 1,8 GB; grão fixo reduziu para cerca de 129 MB.

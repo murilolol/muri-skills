@@ -47,6 +47,9 @@ for f in out/final/*.mp4; do ffprobe -v error -count_frames -show_entries stream
 ffmpeg -hide_banner -i out/final/<p>-16x9.mp4 -vn -af loudnorm=print_format=json -f null - 2>&1 | grep -E '"input_(i|tp)"'
 ```
 
+Atalho que faz tudo isto e as pranchas por cena (16:9 | 9:16, início/meio/fim) em `out/qa/`; **rode antes de entregar**, exit 1 = corrigir:
+`node <pasta-da-skill>/ferramentas/qa.mjs .` (`--sem-prancha` só mede; `--cenas a:0,b:5.2` se `src/plano.json`/`narracao.json` não bastarem).
+
 Os 4 arquivos com o mesmo número de quadros; −16 LUFS ±0,5; pico ≤ −1,5 dBTP; sondas de sincronia com resíduo ≤ 0,5 f.
 
 ## Entrega

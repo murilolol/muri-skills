@@ -106,7 +106,7 @@ A trilha fica ~11 dB abaixo da voz e sobe nas pausas (`som.tsx`).
 1. No storyboard, registre por cena: câmera, interação (cursor), continuidade com a próxima e selo.
 2. Faça **2 pilotos** antes do resto: uma cena de painel e um par de cenas com continuidade. Entregue quadros e o clipe já em
    1080p (nunca prévia 0,5×), peça aprovação no AskUserQuestion e só então estenda.
-3. Peça revisão ao Gemini/AGY, só leitura, nos quadros. Confira cada sugestão contra o dado e a sincronia. No vídeo-referência ele
+3. Peça revisão a um subagente `batedor` (só leitura) nos quadros. Confira cada sugestão contra o dado e a sincronia. No vídeo-referência ele
    errou o selo de um dado que era real e propôs tirar uma busca que quebraria a fala.
 4. Monte pranchas 16:9 + 9:16 dos quadros de virada com o `ffmpeg` do PATH (`hstack`/`xstack`). O ffmpeg do Remotion não
    tem esses filtros.
